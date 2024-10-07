@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
 </head>
 <body>
-    
-        <h1>Results</h1>
-        <h2>KEGG Pathways</h2>
-        <section>
+    <h1>Results</h1>
+    <h2>KEGG Pathways</h2>
+    <section>
         <ul>
         {% for metabolite, data in kegg.items() %}
             <li><strong>{{ metabolite }}:</strong> {{ data }}</li>
@@ -19,7 +18,8 @@
 
         <br>
     </section>
-    <a href="/">Go Back</a>
+    <button type="button" onclick="history.back()">Go Back</button>
+    
 </body>
 </html>
 
