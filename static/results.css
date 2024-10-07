@@ -1,0 +1,17 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(216, 210, 194);
+    font-size: 1.2rem;
+    
+}
+
+section {
+    background: #FFF;
+    padding: 30px;
+   
+}
