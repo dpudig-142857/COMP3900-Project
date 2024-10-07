@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metabolite Query</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
+
 <body>
-    <h1>Query Metabolites for KEGG Pathways</h1>
-    <form method="POST">
-        <label for="metabolites">Enter Metabolites (comma-separated):</label><br>
-        <input type="text" id="metabolites" name="metabolites" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <section>
+        <div class="headings">
+            <h1>Query Metabolites for KEGG Pathways</h1>
+            <p>Enter Metabolites (comma-separated):</p>
+        </div>
+        <div class="input-wrapper">
+            
+            <form method="POST">
+                <!-- <label for="metabolites">Enter Metabolites (comma-separated):</label><br> -->
+                <input type="text" id="metabolites" name="metabolites" required><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
 </body>
 </html>

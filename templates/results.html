@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Query Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
 </head>
 <body>
-    <h1>Results</h1>
-    <h2>KEGG Pathways</h2>
-    <ul>
-    {% for metabolite, data in kegg.items() %}
-        <li><strong>{{ metabolite }}:</strong> {{ data }}</li>
-    {% endfor %}
-    </ul>
+    
+        <h1>Results</h1>
+        <h2>KEGG Pathways</h2>
+        <section>
+        <ul>
+        {% for metabolite, data in kegg.items() %}
+            <li><strong>{{ metabolite }}:</strong> {{ data }}</li>
+        {% endfor %}
+        </ul>
 
-    <br>
+        <br>
+    </section>
     <a href="/">Go Back</a>
 </body>
 </html>
+
+
