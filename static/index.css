@@ -12,7 +12,6 @@ body {
     background-color: rgb(216, 210, 194);
 }
 
-/* Section container */
 .content-section {
     max-width: 800px;
     margin: 40px auto;
@@ -23,13 +22,11 @@ body {
     text-align: center;
 }
 
-/* Styling for the crest image */
 .crest-image {
     max-width: 150px;
     margin-bottom: 20px;
 }
 
-/* Headings styling */
 .headings h1 {
     color: #333;
     font-size: 28px;
@@ -41,12 +38,10 @@ body {
     font-size: 16px;
 }
 
-/* Input form wrapper */
 .input-wrapper {
     margin-top: 20px;
 }
 
-/* Input field styling */
 input[type="text"] {
     width: 80%;
     padding: 10px;
@@ -56,7 +51,6 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
-/* Submit button styling */
 input[type="submit"] {
     background-color: #007BFF;
     color: white;
