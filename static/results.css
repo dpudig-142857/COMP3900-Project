@@ -11,6 +11,7 @@ body {
     background-color: rgb(216, 210, 194);
 }
 
+/* main section */
 .container {
     max-width: 800px;
     margin: auto;
@@ -20,11 +21,13 @@ body {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
 }
 
+/* heading 1 */
 h1 {
     text-align: center;
     color: #333;
 }
 
+/* heading 2 */
 h2 {
     color: #444;
 }
