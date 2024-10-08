@@ -6,21 +6,22 @@
     <title>Query Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
 </head>
-<body>
-    <h1>Results</h1>
-    <h2>KEGG Pathways</h2>
-    <section>
-        <ul>
-        {% for metabolite, data in kegg.items() %}
-            <li><strong>{{ metabolite }}:</strong> {{ data }}</li>
-        {% endfor %}
-        </ul>
 
-        <br>
-    </section>
-    <button type="button" onclick="history.back()">Go Back</button>
-    
+<body>
+    <div class="container">
+        <h1>Results</h1>
+        <h2>KEGG Pathways</h2>
+        <section>
+            <ul>
+                {% for metabolite, data in kegg.items() %}
+                    <li><strong>{{ metabolite }}:</strong> {{ data }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <div class="button-container">
+            <button type="button" onclick="history.back()">Go Back</button>
+        </div>
+    </div>
 </body>
 </html>
-
-

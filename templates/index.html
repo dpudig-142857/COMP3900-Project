@@ -8,16 +8,18 @@
 </head>
 
 <body>
-    <section>
+    <section class="content-section">
+
+        <img src="{{ url_for('static', filename='crest.jpeg') }}" alt="Crest" class="crest-image">
+
         <div class="headings">
             <h1>Query Metabolites for KEGG Pathways</h1>
             <p>Enter Metabolites (comma-separated):</p>
         </div>
+
         <div class="input-wrapper">
-            
             <form method="POST">
-                <!-- <label for="metabolites">Enter Metabolites (comma-separated):</label><br> -->
-                <input type="text" id="metabolites" name="metabolites" required><br><br>
+                <input type="text" id="metabolites" name="metabolites" required placeholder="Enter metabolites..."><br><br>
                 <input type="submit" value="Submit">
             </form>
         </div>
