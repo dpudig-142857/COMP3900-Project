@@ -14,19 +14,7 @@
         <section>
             <ul>
                 {% for metabolite, data in kegg.items() %}
-                    <li>
-                        <strong>{{ metabolite }}:</strong> {{ data }}
-
-                        <!-- PubChem and HMDB Links -->
-                        <br>
-                        <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ metabolite }}" target="_blank">
-                            View on PubChem
-                        </a>
-                        <br>
-                        <a href="https://hmdb.ca/metabolites/{{ metabolite }}" target="_blank">
-                            View on HMDB
-                        </a>
-                    </li>
+                    <li><strong>{{ metabolite }}:</strong> {{ data }}</li>
                 {% endfor %}
             </ul>
         </section>
