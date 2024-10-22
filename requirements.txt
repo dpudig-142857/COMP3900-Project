@@ -1,0 +1,7 @@
+Flask
+requests
+numpy
+sqlalchemy
+pandas
+neo4j
+beautifulsoup4
