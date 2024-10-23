@@ -70,3 +70,21 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.links {
+    margin-top: 10px;
+}
+
+.links .btn {
+    display: inline-block;
+    background-color: #2a9d8f;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.links .btn:hover {
+    background-color: #21867a;
+}

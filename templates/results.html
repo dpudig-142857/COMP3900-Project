@@ -23,14 +23,15 @@
                         </ul>
 
                         <!-- PubChem and HMDB Links -->
-                        <br>
-                        <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ metabolite }}" target="_blank">
-                            View on PubChem
-                        </a><br>
+                        <div class="links">
+                            <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ metabolite }}" target="_blank" class="btn">
+                                View on PubChem
+                            </a>
+                            <a href="https://hmdb.ca/metabolites/{{ metabolite }}" target="_blank" class="btn">
+                                View on HMDB
+                            </a>
+                        </div>
 
-                        <a href="https://hmdb.ca/metabolites/{{ metabolite }}" target="_blank">
-                            View on HMDB
-                        </a>
                     </li>
                 {% endfor %}
             </ul>
