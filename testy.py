@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     metabolite_query = MetaboliteQuery(uri, user, password)
     try:
-        metabolite_name = "Iron"
+        metabolite_name = "A"
         metabolite_query.get_metabolite_and_neighbors(metabolite_name)
     finally:
         metabolite_query.close()
