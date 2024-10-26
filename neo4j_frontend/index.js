@@ -22,14 +22,21 @@ const submitQuery = () => {
     // Construct the Cypher query with the parameterized metabolite name
     
     
-    const metaboliteName = document.querySelector('#queryContainer').value;
-    if (!metaboliteName) {
-        alert("Please enter a metabolite name.");
-        return;
+    numbersStr = document.querySelector('#queryContainer').value;
+    
+    numbersStr = numbersStr.split("/");
+    const metaboliteName = numbersStr[0]
+    const neighbors = numbersStr[1]
+
+    let start = `match (m0 {name: '${metaboliteName}'})`;
+    let end = ` return m0`;
+
+    for (let i = 0; i < neighbors; i++) {
+        start += `-[r${i+1}:LINKED]-(m${i+1})`
+        end += `,r${i+1},m${i+1}` 
     }
 
-    const cypherString = `match (m:METABOLITE {name: '${metaboliteName}'})-[r:LINKED]-(p) return m,r,p limit 20
-    `;
+    const cypherString = start+end+` limit 300`;
 
     // const cypherString = document.querySelector('#queryContainer').value
 
