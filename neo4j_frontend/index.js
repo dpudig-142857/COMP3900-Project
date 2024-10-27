@@ -9,6 +9,7 @@ const arrowHeight = 5
 const arrowWidth = 5
 
 const submitQuery = () => {
+    console.log("Startcalled");
     // Create new, empty objects to hold the nodes and relationships returned by the query results
     let nodeItemMap = {}
     let linkItemMap = {}
@@ -23,10 +24,10 @@ const submitQuery = () => {
     
     
     numbersStr = document.querySelector('#queryContainer').value;
+    neighbors = document.querySelector('#neighborsDropdown').value;
     
     numbersStr = numbersStr.split("/");
     const metaboliteName = numbersStr[0]
-    const neighbors = numbersStr[1]
 
     let start = `match (m0 {name: '${metaboliteName}'})`;
     let end = ` return m0`;
