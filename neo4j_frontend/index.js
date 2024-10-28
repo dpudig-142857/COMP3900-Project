@@ -8,6 +8,46 @@ const circleSize = 30
 const arrowHeight = 5
 const arrowWidth = 5
 
+let compoundsData = [];
+let pathwaysData = {};
+fetch('compounds.json')
+    .then(response => response.json())
+    .then(data => {
+        compoundsData = data;
+        console.log("Compounds data loaded:", compoundsData);
+    })
+    .catch(error => console.error("Error loading compounds data:", error));
+
+fetch('pathways.json')
+    .then(response => response.json())
+    .then(data => {
+        pathwaysData = data;
+        console.log("Pathways data loaded:", pathwaysData);
+    })
+    .catch(error => console.error("Error loading pathways data:", error));
+
+function getCompoundId(compoundName) {
+    const compound = compoundsData.find(c => c.compound_name === compoundName);
+    return compound ? compound.compound_id : null;
+}
+
+function getPathwayId(pathwayName) {
+    const pathwayId = pathwaysData[pathwayName];
+    return pathwayId || null;
+}
+
+function openLinksPage(id, isCompound) {
+    if (isCompound) {
+        const url = `links.html?compoundId=${id}`;
+        console.log(`Opening compound page: ${url}`);
+        window.open(url, "_blank");
+    } else {
+        const url = `pathwaylinks.html?pathwayId=${id}`;
+        console.log(`Opening pathway page: ${url}`);
+        window.open(url, "_blank");
+    }
+}
+
 const submitQuery = () => {
     console.log("Startcalled");
     // Create new, empty objects to hold the nodes and relationships returned by the query results
@@ -18,7 +58,6 @@ const submitQuery = () => {
     
     //const metabolite_name = document.querySelector('#queryContainer').value
     //const cypherString =`MATCH (m:METABOLITE name: ${metabolite_name})--(neighbor) RETURN m.name AS metabolite, neighbor.name AS neighbor` 
-
 
     // Construct the Cypher query with the parameterized metabolite name
     
@@ -189,7 +228,34 @@ const updateGraph = (nodes, links) => {
         });
         context.restore();
     }
+
+    canvas.addEventListener('click', event => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = (event.clientX - rect.left) / transform.k - transform.x;
+        const mouseY = (event.clientY - rect.top) / transform.k - transform.y;
+
+        nodes.forEach(node => {
+            const dx = mouseX - node.x;
+            const dy = mouseY - node.y;
+            if (Math.sqrt(dx * dx + dy * dy) < circleSize) {
+                const nodeName = node.properties.name;
+                console.log("Node clicked:", nodeName);
+
+                const compoundId = getCompoundId(nodeName);
+                const pathwayId = getPathwayId(nodeName);
+
+                if (compoundId) {
+                    openLinksPage(compoundId, true);
+                } else if (pathwayId) {
+                    openLinksPage(pathwayId, false);
+                } else {
+                    alert("Link not available for this node.");
+                }
+            }
+        });
+    });
 }
+
 function responsiveCanvasSizer() {
     const canvas = document.querySelector('canvas')
     const rect = canvas.getBoundingClientRect()

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pathway Links</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Pathway Information</h1>
+        <p id="pathwayName"></p>
+        <ul>
+            <li><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
+        </ul>
+        <p id="errorMessage" style="color: red; display: none;">Pathway link not found for this pathway.</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pathwayId = urlParams.get('pathwayId');
+
+        if (pathwayId) {
+            document.getElementById('pathwayName').innerText = `Pathway ID: ${pathwayId}`;
+
+            const keggUrl = `https://www.genome.jp/pathway/map${pathwayId}`;
+            document.getElementById('keggLink').href = keggUrl;
+            document.getElementById('keggLink').innerText = "View pathway on KEGG";
+        } else {
+            document.getElementById('pathwayName').innerText = "Pathway ID not provided.";
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
