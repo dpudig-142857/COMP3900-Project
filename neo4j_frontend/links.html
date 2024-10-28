@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compound Links</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Links for Compound</h1>
+        <p id="compoundName"></p>
+        <ul>
+            <li><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
+            <li><a id="hmdbLink" href="#" target="_blank">View on HMDB</a></li>
+        </ul>
+        <p id="errorMessage" style="color: red; display: none;">HMDB link not found for this compound.</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const compoundId = urlParams.get('compoundId');
+
+        if (compoundId) {
+            document.getElementById('compoundName').innerText = `Compound ID: ${compoundId}`;
+
+            const keggUrl = `https://www.genome.jp/dbget-bin/www_bget?cpd:${compoundId}`;
+            document.getElementById('keggLink').href = keggUrl;
+
+            async function fetchHmdbLink() {
+                try {
+                    let response = await fetch(keggUrl);
+                    let pageText = await response.text();
+
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(pageText, "text/html");
+
+                    let linkDbUrl = Array.from(doc.querySelectorAll("a"))
+                        .find(a => a.href.includes("get_linkdb?-t+hmdb"));
+
+                    if (!linkDbUrl) {
+                        console.error("Link not found on the KEGG page.");
+                        document.getElementById('errorMessage').style.display = 'block';
+                        return;
+                    }
+
+                    response = await fetch(linkDbUrl.href);
+                    pageText = await response.text();
+                    doc = parser.parseFromString(pageText, "text/html");
+
+                    const finalHmdbLink = Array.from(doc.querySelectorAll("a"))
+                        .find(a => a.href.includes("hmdb.ca/metabolites"));
+
+                    if (finalHmdbLink) {
+                        document.getElementById('hmdbLink').href = finalHmdbLink.href;
+                    } else {
+                        console.error("HMDB link not found");
+                        document.getElementById('errorMessage').style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error("Error fetching HMDB link:", error);
+                    document.getElementById('errorMessage').style.display = 'block';
+                }
+            }
+
+            fetchHmdbLink();
+        } else {
+            document.getElementById('compoundName').innerText = "Compound ID not provided.";
+        }
+    </script>
+</body>
+</html>
