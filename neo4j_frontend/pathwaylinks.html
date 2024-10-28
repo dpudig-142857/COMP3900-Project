@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pathway Links</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        #pathwayName {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        ul li {
+            margin: 15px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0073e6;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #005bb5;
+        }
+
+        #errorMessage {
+            color: #ff4c4c;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pathway Information</h1>
+        <p id="pathwayName"></p>
+        <ul>
+            <li><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
+        </ul>
+        <p id="errorMessage" style="display: none;">Pathway link not found for this pathway.</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pathwayId = urlParams.get('pathwayId');
+
+        if (pathwayId) {
+            document.getElementById('pathwayName').innerText = `Pathway ID: ${pathwayId}`;
+
+            const keggUrl = `https://www.genome.jp/pathway/map${pathwayId}`;
+            document.getElementById('keggLink').href = keggUrl;
+            document.getElementById('keggLink').innerText = "View pathway on KEGG";
+        } else {
+            document.getElementById('pathwayName').innerText = "Pathway ID not provided.";
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

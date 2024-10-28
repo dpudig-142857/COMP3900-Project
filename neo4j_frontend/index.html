@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo4j D3 Canvas Visualization</title>
+
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- Link to custom CSS -->
+    <link rel="stylesheet" href="neo4j.css">
+
+    <!-- D3.js Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Our D3.js code -->
+    <script type="text/javascript" src="index.js"></script>
+
+</head>
+<body class="bg-light" onload="responsiveCanvasSizer()">
+
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Neo4j D3 Visualization</h1>
+        
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Enter Your Cypher Query</h5>
+                <input type="text" class="form-control mb-3" placeholder="Metabolite name" id="queryContainer">
+                
+                <!-- Selecting the number of neigbours :) -->
+                <label for="neighborsDropdown" class="form-label">Number of Neighbors:</label>
+                <select class="form-select mb-3" id="neighborsDropdown">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+
+                <button class="btn btn-primary" onclick="submitQuery()">Run Query</button>
+            </div>
+        </div>
+
+        <div class="border border-3">
+            <!-- Canvas for graph visualization -->
+            <canvas id="graphCanvas" style="width: 100%; height: 600px; object-fit: contain;"></canvas>
+        </div>
+    </div>
+</body>
+</html>
+
