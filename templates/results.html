@@ -17,21 +17,24 @@
                     <li>
                         <strong>{{ metabolite }}:</strong>
                         <ul>
-                            {% for pathway in data.splitlines() %}
+                            {% for pathway in data['kegg'].splitlines() %}
                                 <li><strong>{{ pathway.split()[0] }}</strong> - {{ pathway.split()[1:]|join(' ') }}</li>
                             {% endfor %}
                         </ul>
 
                         <!-- PubChem and HMDB Links -->
-                        <div class="links">
-                            <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ metabolite }}" target="_blank" class="btn">
-                                View on PubChem
-                            </a>
-                            <a href="https://hmdb.ca/metabolites/{{ metabolite }}" target="_blank" class="btn">
+                        <br>
+                        <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ metabolite }}" target="_blank">
+                            View on PubChem
+                        </a><br>
+
+                        {% if data['hmdb_id'] != 'HMDB ID not found' %}
+                            <a href="https://hmdb.ca/metabolites/{{ data['hmdb_id'] }}" target="_blank">
                                 View on HMDB
                             </a>
-                        </div>
-
+                        {% else %}
+                            <p>HMDB ID not found</p>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
@@ -43,3 +46,4 @@
     </div>
 </body>
 </html>
+
