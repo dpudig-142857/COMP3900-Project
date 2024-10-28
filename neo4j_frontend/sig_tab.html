@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results Tab</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        #filterInput {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .legend {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .legend h3 {
+            margin-bottom: 10px;
+        }
+        .legend p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Results Overview</h1>
+
+        <input type="text" id="filterInput" placeholder="Type to filter results..." oninput="filterResults()">
+
+        <div class="legend">
+            <h3>Legend</h3>
+            <p>Only metabolites with sufficient data for statistical testing are displayed.</p>
+            <p><strong>p-values:</strong> The p-values for each statistical test used (T-test, Wilcoxon Rank-Sum Test, Permutation Test).</p>
+            <p><strong>CVG Samples:</strong> Number of samples in the CVG group.</p>
+            <p><strong>CVH Samples:</strong> Number of samples in the CVH group.</p>
+            <p><strong>Significance:</strong> Indicates whether the test was significant for each statistical test.</p>
+            <p><strong>Metabolite Emoji Annotations:</strong> Each metabolite is annotated with an emoji to show the number of significant tests:
+                <ul>
+                    <li><span style="font-size: 1.2em;">🟢</span> - Significant in 3 tests</li>
+                    <li><span style="font-size: 1.2em;">🟡</span> - Significant in 2 tests</li>
+                    <li><span style="font-size: 1.2em;">🟠</span> - Significant in 1 test</li>
+                </ul>
+            </p>
+        </div>        
+        
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th rowspan="2">Metabolite</th>
+                    <th colspan="3">p-values</th>
+                    <th rowspan="2">CVG Samples</th>
+                    <th rowspan="2">CVH Samples</th>
+                    <th colspan="3">Significance</th>
+                </tr>
+                <tr>
+                    <th>T-test</th>
+                    <th>Wilcoxon</th>
+                    <th>Permutation</th>
+                    <th>T-test</th>
+                    <th>Wilcoxon</th>
+                    <th>Permutation</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function loadResults() {
+            const response = await fetch("sig_colours.json");
+            const data = await response.json();
+            const tbody = document.getElementById("tableBody");
+
+            data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.setAttribute("data-row", JSON.stringify(row).toLowerCase());
+                tr.innerHTML = `
+                    <td>${row.Metabolite}</td>
+                    <td>${row.T_test_p_value}</td>
+                    <td>${row.Wilcoxon_p_value}</td>
+                    <td>${row.Permutation_p_value}</td>
+                    <td>${row.CVG_samples}</td>
+                    <td>${row.CVH_samples}</td>
+                    <td>${row.Significant_T_test}</td>
+                    <td>${row.Significant_Wilcoxon}</td>
+                    <td>${row.Significant_Permutation}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterResults() {
+            const filter = document.getElementById("filterInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#resultsTable tbody tr");
+
+            rows.forEach(row => {
+                const rowData = row.getAttribute("data-row");
+                row.style.display = rowData.includes(filter) ? "" : "none";
+            });
+        }
+
+        loadResults();
+    </script>
+</body>
+</html>
