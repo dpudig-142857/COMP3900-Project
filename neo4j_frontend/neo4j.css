@@ -5,45 +5,110 @@
     padding: 0;
 }
 
-/* Body style */
 body {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Arial', sans-serif; 
+    color: rgb(0, 0, 0);
 }
 
-/* Container style */
-.container {
-    max-width: 1000px; 
-    margin: auto; 
-    padding: 40px; 
-    background: white; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Heading style */
+/* Title -> Neo4j D3 Visualization */
 h1 {
-    font-size: 3rem;
-    color: rgb(0, 0, 0); 
+    font-size: 3rem; 
+    color: #000000; 
 }
 
-
-/* Input field style */
-.form-control {
-    border: 1px solid #000000;
-    border-radius: 10px;
-    font-size: 1.1rem;
+/* The logo unsw */
+.crest-image {
+    max-width: 150px;
+    height: auto;
 }
 
-/* Button style */
-.btn {
-    background-color: #007bff; 
-    color: white; 
-    border-radius: 10px; 
-    padding: 10px 20px; 
-    font-size: 1.1rem; 
+/* Query Border */
+.card {
+    border-radius: 0.5rem; 
+    border: 1px solid #007bff; 
 }
 
-/* Button style  -> hovered */
-.btn:hover {
-    background-color: #0056b3; 
+/* Query title -> Enter Your Cypher Query */
+.card-title {
+    font-size: 1.5rem;
+}
+
+/* Query answer section and select neighbour section */
+.form-control,
+.form-select {
+    border: 1px solid #ced4da;
+    border-radius: 3rem;
+}
+
+/* Sections when used */
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+/* Run query button */
+.btn-primary {
+    background-color: #007bff;  
+    border-radius: 0.5rem; 
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+/* Run query button when user hovers over it */
+.btn-primary:hover {
+    background-color: #004085;
+    transform: scale(1.05);
+}
+
+/* Canvas section */
+#graphCanvas {
+    border: 2px solid #007bff;
+    background-color: #ffffff;
+}
+
+/* Legend */
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+/* Zoom Buttons */
+.zoom-buttons {
+    display: flex;       
+    justify-content: center;
+    margin: 20px;     
+    gap: 10px;
+}
+
+.zoom-buttons button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.zoom-buttons button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.zoom-buttons button:active {
+    transform: scale(0.95);
+}
+
+.zoom-buttons button:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }

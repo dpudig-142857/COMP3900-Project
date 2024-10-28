@@ -20,12 +20,16 @@
 
 </head>
 <body class="bg-light" onload="responsiveCanvasSizer()">
-    <!-- UNSW Logo -->
-     <div class="d-flex justify-content-start p-3">
-        <img src="https://engagementaustralia.org.au/wp-content/uploads/2023/04/new-UNSW-logo-png-vertical-crest.png", alt="UNSW Logo", style="height: 120px;", class="center">
-     </div>
+    <!-- UNSW Crest -->
+    <div class="container text-center mt-4">
+        <img src="crest.jpeg" alt="Crest" class="crest-image">
+    </div>
+    
     <div class="container my-5">
         <h1 class="text-center mb-4">Neo4j D3 Visualization</h1>
+        <!-- Significant Metabolites Tab -->
+        <div class="mb-4 text-center">
+            <a href="sig_tab.html" class="btn btn-primary">View Significant Metabolites</a>
         
         <div class="card shadow-sm mb-4">
             <div class="card-body">
@@ -44,6 +48,27 @@
 
                 <button class="btn btn-primary" onclick="submitQuery()">Run Query</button>
             </div>
+        </div>
+
+        <!--Legends-->
+        <div class="mb-4">
+            <h5 class="text-muted">Graph Legend</h5>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #4EA8E5; border-radius: 50%;"></span> 
+                <span class="legend-label">Metabolite (Blue)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color" style="background-color: #6df1a9; border-radius: 50%;"></span> 
+                <span class="legend-label">Pathway (Green)</span>
+            </div>
+        </div>
+
+        <!--Zoom buttons-->
+        <div class="zoom-buttons">
+            <button id="zoomInBtn">Zoom In</button>
+            <button id="zoomOutBtn">Zoom Out</button>
+            <button id="resetZoomBtn">Reset Zoom</button>
+            <button id="saveCanvasBtn">Save Canvas</button>
         </div>
 
         <div class="border border-3">
