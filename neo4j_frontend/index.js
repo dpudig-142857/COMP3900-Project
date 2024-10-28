@@ -231,19 +231,19 @@ const updateGraph = (nodes, links) => {
 
     canvas.addEventListener('click', event => {
         const rect = canvas.getBoundingClientRect();
-        const mouseX = (event.clientX - rect.left) / transform.k - transform.x;
-        const mouseY = (event.clientY - rect.top) / transform.k - transform.y;
-
+        const mouseX = (event.clientX - rect.left - transform.x) / transform.k;
+        const mouseY = (event.clientY - rect.top - transform.y) / transform.k;
+    
         nodes.forEach(node => {
             const dx = mouseX - node.x;
             const dy = mouseY - node.y;
             if (Math.sqrt(dx * dx + dy * dy) < circleSize) {
                 const nodeName = node.properties.name;
                 console.log("Node clicked:", nodeName);
-
+    
                 const compoundId = getCompoundId(nodeName);
                 const pathwayId = getPathwayId(nodeName);
-
+    
                 if (compoundId) {
                     openLinksPage(compoundId, true);
                 } else if (pathwayId) {
