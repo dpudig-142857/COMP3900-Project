@@ -139,17 +139,17 @@ const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    const centerX = width / 2;
-    const centerY = height / 2;
+    // const centerX = width / 2;
+    // const centerY = height / 2;
 
-    // Centering the nodes on the canvas
-    nodes.forEach((node, index) => {
+    // // Centering the nodes on the canvas
+    // nodes.forEach((node, index) => {
 
-        // spreading the nodes apart
-        const angle = (index / nodes.length) * 2 * Math.PI;
-        node.x = centerX + (Math.cos(angle) * 100);
-        node.y = centerY + (Math.sin(angle) * 100);
-    });
+    //     // spreading the nodes apart
+    //     const angle = (index / nodes.length) * 2 * Math.PI;
+    //     node.x = centerX + (Math.cos(angle) * 100);
+    //     node.y = centerY + (Math.sin(angle) * 100);
+    // });
 
     let transform = d3.zoomIdentity;
 
@@ -202,6 +202,27 @@ const updateGraph = (nodes, links) => {
     document.getElementById('zoomInBtn').onclick = () => zoom.scaleBy(d3.select(canvas).transition().duration(1000), 1.2);
     document.getElementById('zoomOutBtn').onclick = () => zoom.scaleBy(d3.select(canvas).transition().duration(500), 0.8);
     document.getElementById('resetZoomBtn').onclick = () => zoom.transform(d3.select(canvas).transition().duration(500), d3.zoomIdentity);
+
+    // Save the current canvas function
+    document.getElementById('saveCanvasBtn').onclick = function() {
+        const canvas = document.getElementById('graphCanvas');
+        console.log(canvas); 
+
+        if (canvas) {
+            console.log('Canvas found:', canvas);
+        } else {
+            console.error('Canvas element with ID "graphCanvas" not found.');
+        }
+        const dataURL = canvas.toDataURL('image/png');
+
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'canvas_image.png';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     //The canvas is cleared and then instructed to draw each node and link with updated locations per the physical force simulation.
     function simulationUpdate() {
