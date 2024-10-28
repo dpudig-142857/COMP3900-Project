@@ -1,6 +1,6 @@
 [
   {
-    "Metabolite": "Methyl-3-aminobenzoate 🟠",
+    "Metabolite": "Methyl-3-aminobenzoate",
     "T_test_p_value": 0.1483,
     "Wilcoxon_p_value": 0.0043,
     "Permutation_p_value": 0.134,
@@ -11,7 +11,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Cacodylic acid ",
+    "Metabolite": "Cacodylic acid",
     "T_test_p_value": 0.2742,
     "Wilcoxon_p_value": 0.2827,
     "Permutation_p_value": 0.292,
@@ -22,7 +22,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Nicotinamide 🟢",
+    "Metabolite": "Nicotinamide",
     "T_test_p_value": 0.0031,
     "Wilcoxon_p_value": 0.0029,
     "Permutation_p_value": 0,
@@ -33,7 +33,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "L-Pyroglutamic acid ",
+    "Metabolite": "L-Pyroglutamic acid",
     "T_test_p_value": 0.3534,
     "Wilcoxon_p_value": 0.6159,
     "Permutation_p_value": 0.402,
@@ -44,7 +44,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Propoxycaine ",
+    "Metabolite": "Propoxycaine",
     "T_test_p_value": 0.9291,
     "Wilcoxon_p_value": 0.4918,
     "Permutation_p_value": 1,
@@ -55,7 +55,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Diisobutyl adipate 🟢",
+    "Metabolite": "Diisobutyl adipate",
     "T_test_p_value": 0.0058,
     "Wilcoxon_p_value": 0.0033,
     "Permutation_p_value": 0.011,
@@ -66,7 +66,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Citroflex 2 ",
+    "Metabolite": "Citroflex 2",
     "T_test_p_value": 0.4276,
     "Wilcoxon_p_value": 0.3265,
     "Permutation_p_value": 0.439,
@@ -77,7 +77,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Avobenzone ",
+    "Metabolite": "Avobenzone",
     "T_test_p_value": 0.7681,
     "Wilcoxon_p_value": 0.6973,
     "Permutation_p_value": 0.626,
@@ -88,7 +88,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "2-Phenylbenzimidazole-5-sulfonic acid ",
+    "Metabolite": "2-Phenylbenzimidazole-5-sulfonic acid",
     "T_test_p_value": 0.0561,
     "Wilcoxon_p_value": 0.1239,
     "Permutation_p_value": 0.064,
@@ -99,7 +99,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Lamotrigine ",
+    "Metabolite": "Lamotrigine",
     "T_test_p_value": 0.3802,
     "Wilcoxon_p_value": 0.2277,
     "Permutation_p_value": 0.38,
@@ -110,7 +110,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Nicotinyl alcohol ",
+    "Metabolite": "Nicotinyl alcohol",
     "T_test_p_value": 0.1065,
     "Wilcoxon_p_value": 0.0708,
     "Permutation_p_value": 0.111,
@@ -121,7 +121,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "2,3-Methylenedioxy pyrovalerone ",
+    "Metabolite": "2,3-Methylenedioxy pyrovalerone",
     "T_test_p_value": 0.4905,
     "Wilcoxon_p_value": 0.4529,
     "Permutation_p_value": 0.504,
@@ -132,7 +132,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Isophorone ",
+    "Metabolite": "Isophorone",
     "T_test_p_value": 0.364,
     "Wilcoxon_p_value": 0.6667,
     "Permutation_p_value": 0.676,
@@ -143,7 +143,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "17β-Hydroxy-androstano[3,2-c]isoxazole ",
+    "Metabolite": "17β-Hydroxy-androstano[3,2-c]isoxazole",
     "T_test_p_value": 0.0677,
     "Wilcoxon_p_value": 0.2249,
     "Permutation_p_value": 0.073,
@@ -154,7 +154,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Nicotinamide ",
+    "Metabolite": "Nicotinamide",
     "T_test_p_value": 0.3287,
     "Wilcoxon_p_value": 0.3461,
     "Permutation_p_value": 0.363,
@@ -165,7 +165,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "1-Nitrosopyrrolidine (NPYR) 🟢",
+    "Metabolite": "1-Nitrosopyrrolidine (NPYR)",
     "T_test_p_value": 0.0138,
     "Wilcoxon_p_value": 0.0226,
     "Permutation_p_value": 0.016,
@@ -176,7 +176,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Spermine ",
+    "Metabolite": "Spermine",
     "T_test_p_value": 0.3261,
     "Wilcoxon_p_value": 0.3743,
     "Permutation_p_value": 0.281,
@@ -187,7 +187,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "N,N'-Diphenylguanidine 🟢",
+    "Metabolite": "N,N'-Diphenylguanidine",
     "T_test_p_value": 0.0085,
     "Wilcoxon_p_value": 0.0194,
     "Permutation_p_value": 0.011,
@@ -198,7 +198,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Cyclohexylamine ",
+    "Metabolite": "Cyclohexylamine",
     "T_test_p_value": 0.3149,
     "Wilcoxon_p_value": 0.3511,
     "Permutation_p_value": 0.299,
@@ -209,7 +209,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Histamine ",
+    "Metabolite": "Histamine",
     "T_test_p_value": 0.1989,
     "Wilcoxon_p_value": 0.3286,
     "Permutation_p_value": 0.231,
@@ -220,7 +220,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "L-Cystine ",
+    "Metabolite": "L-Cystine",
     "T_test_p_value": 0.3185,
     "Wilcoxon_p_value": 0.3226,
     "Permutation_p_value": 0.369,
@@ -231,7 +231,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "PPG n4 ",
+    "Metabolite": "PPG n4",
     "T_test_p_value": 0.1244,
     "Wilcoxon_p_value": 0.5676,
     "Permutation_p_value": 0.122,
@@ -242,7 +242,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Methionine ",
+    "Metabolite": "Methionine",
     "T_test_p_value": 0.4308,
     "Wilcoxon_p_value": 0.3084,
     "Permutation_p_value": 0.428,
@@ -253,7 +253,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "4-Picoline 🟠",
+    "Metabolite": "4-Picoline",
     "T_test_p_value": 0.0082,
     "Wilcoxon_p_value": 0.1002,
     "Permutation_p_value": 0.064,
@@ -264,7 +264,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "2-{[3-(2,3,4,5,6-pentamethylphenyl)prop-2-ynyl]oxy}tetrahydro-2H-pyran 🟢",
+    "Metabolite": "2-{[3-(2,3,4,5,6-pentamethylphenyl)prop-2-ynyl]oxy}tetrahydro-2H-pyran",
     "T_test_p_value": 0.0149,
     "Wilcoxon_p_value": 0.0134,
     "Permutation_p_value": 0.018,
@@ -275,7 +275,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Eicosapentaenoic acid 🟡",
+    "Metabolite": "Eicosapentaenoic acid",
     "T_test_p_value": 0.0345,
     "Wilcoxon_p_value": 0.053,
     "Permutation_p_value": 0.049,
@@ -286,7 +286,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Methyldienolone ",
+    "Metabolite": "Methyldienolone",
     "T_test_p_value": 0.836,
     "Wilcoxon_p_value": 0.8607,
     "Permutation_p_value": 0.84,
@@ -297,7 +297,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "1-Vinylimidazole 🟡",
+    "Metabolite": "1-Vinylimidazole",
     "T_test_p_value": 0.022,
     "Wilcoxon_p_value": 0.0643,
     "Permutation_p_value": 0.018,
@@ -308,7 +308,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Cortisol ",
+    "Metabolite": "Cortisol",
     "T_test_p_value": 0.4263,
     "Wilcoxon_p_value": 0.5708,
     "Permutation_p_value": 0.462,
@@ -319,7 +319,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "1,2-Benzisothiazolin-3-one 🟢",
+    "Metabolite": "1,2-Benzisothiazolin-3-one",
     "T_test_p_value": 0.0183,
     "Wilcoxon_p_value": 0.0312,
     "Permutation_p_value": 0.021,
@@ -330,7 +330,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Tris(2-ethylhexyl) phosphate 🟢",
+    "Metabolite": "Tris(2-ethylhexyl) phosphate",
     "T_test_p_value": 0.0079,
     "Wilcoxon_p_value": 0.0002,
     "Permutation_p_value": 0.003,
@@ -341,7 +341,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "2-Methyl-S-benzothiazole 🟠",
+    "Metabolite": "2-Methyl-S-benzothiazole",
     "T_test_p_value": 0.0028,
     "Wilcoxon_p_value": 0.2207,
     "Permutation_p_value": 0.323,
@@ -352,7 +352,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Stearamide ",
+    "Metabolite": "Stearamide",
     "T_test_p_value": 0.6439,
     "Wilcoxon_p_value": 0.6894,
     "Permutation_p_value": 0.643,
@@ -363,7 +363,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Choline 🟢",
+    "Metabolite": "Choline",
     "T_test_p_value": 2.1041e-12,
     "Wilcoxon_p_value": 2.0825e-12,
     "Permutation_p_value": 0,
@@ -374,7 +374,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Triethanolamine ",
+    "Metabolite": "Triethanolamine",
     "T_test_p_value": 0.8186,
     "Wilcoxon_p_value": 0.894,
     "Permutation_p_value": 0.825,
@@ -385,7 +385,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "N,N-Diethylethanolamine 🟡",
+    "Metabolite": "N,N-Diethylethanolamine",
     "T_test_p_value": 0.0285,
     "Wilcoxon_p_value": 0.0524,
     "Permutation_p_value": 0.026,
@@ -396,7 +396,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Triethanolamine ",
+    "Metabolite": "Triethanolamine",
     "T_test_p_value": 0.2347,
     "Wilcoxon_p_value": 0.1621,
     "Permutation_p_value": 0.254,
@@ -407,7 +407,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "DL-Arginine 🟢",
+    "Metabolite": "DL-Arginine",
     "T_test_p_value": 6.4111e-31,
     "Wilcoxon_p_value": 7.0848e-14,
     "Permutation_p_value": 0,
@@ -418,7 +418,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Panthenol 🟢",
+    "Metabolite": "Panthenol",
     "T_test_p_value": 0.0212,
     "Wilcoxon_p_value": 0.0389,
     "Permutation_p_value": 0.021,
@@ -429,7 +429,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Uric acid ",
+    "Metabolite": "Uric acid",
     "T_test_p_value": 0.9002,
     "Wilcoxon_p_value": 0.8014,
     "Permutation_p_value": 0.977,
@@ -440,7 +440,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Bis(2-ethylhexyl)adipate ",
+    "Metabolite": "Bis(2-ethylhexyl)adipate",
     "T_test_p_value": 0.4763,
     "Wilcoxon_p_value": 0.386,
     "Permutation_p_value": 0.496,
@@ -451,7 +451,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "D-(+)-Pipecolinic acid ",
+    "Metabolite": "D-(+)-Pipecolinic acid",
     "T_test_p_value": 0.0647,
     "Wilcoxon_p_value": 0.1212,
     "Permutation_p_value": 0.056,
@@ -462,7 +462,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Cetrimonium ",
+    "Metabolite": "Cetrimonium",
     "T_test_p_value": 0.7346,
     "Wilcoxon_p_value": 0.6845,
     "Permutation_p_value": 0.85,
@@ -473,7 +473,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Bicine ",
+    "Metabolite": "Bicine",
     "T_test_p_value": 0.6559,
     "Wilcoxon_p_value": 0.8065,
     "Permutation_p_value": 0.7,
@@ -484,7 +484,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Pyridoxal ",
+    "Metabolite": "Pyridoxal",
     "T_test_p_value": 0.3247,
     "Wilcoxon_p_value": 0.4872,
     "Permutation_p_value": 0.329,
@@ -495,7 +495,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "1-Vinylimidazole 🟢",
+    "Metabolite": "1-Vinylimidazole",
     "T_test_p_value": 0,
     "Wilcoxon_p_value": 0.0001,
     "Permutation_p_value": 0,
@@ -506,7 +506,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "DL-α-Aminocaprylic acid 🟢",
+    "Metabolite": "DL-α-Aminocaprylic acid",
     "T_test_p_value": 0.0002,
     "Wilcoxon_p_value": 0.0175,
     "Permutation_p_value": 0.003,
@@ -517,7 +517,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "L-Methionine sulfoxide ",
+    "Metabolite": "L-Methionine sulfoxide",
     "T_test_p_value": 0.5358,
     "Wilcoxon_p_value": 0.8139,
     "Permutation_p_value": 0.567,
@@ -528,7 +528,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Didecyldimethylammonium ",
+    "Metabolite": "Didecyldimethylammonium",
     "T_test_p_value": 0.379,
     "Wilcoxon_p_value": 0.9215,
     "Permutation_p_value": 0.387,
@@ -539,7 +539,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "2,2,5,5-tetramethyl-2,5-dihydro-1H-pyrrole-3-carboxamide 🟢",
+    "Metabolite": "2,2,5,5-tetramethyl-2,5-dihydro-1H-pyrrole-3-carboxamide",
     "T_test_p_value": 0.0228,
     "Wilcoxon_p_value": 0.0354,
     "Permutation_p_value": 0.022,
@@ -550,7 +550,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "Erucamide 🟠",
+    "Metabolite": "Erucamide",
     "T_test_p_value": 0.0992,
     "Wilcoxon_p_value": 0.0307,
     "Permutation_p_value": 0.101,
@@ -561,7 +561,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "D-(+)-Proline ",
+    "Metabolite": "D-(+)-Proline",
     "T_test_p_value": 0.9725,
     "Wilcoxon_p_value": 0.8,
     "Permutation_p_value": 1,
@@ -572,7 +572,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "trans-3-Indoleacrylic acid ",
+    "Metabolite": "trans-3-Indoleacrylic acid",
     "T_test_p_value": 0.1549,
     "Wilcoxon_p_value": 0.1239,
     "Permutation_p_value": 0.146,
@@ -583,7 +583,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "PEG n7 ",
+    "Metabolite": "PEG n7",
     "T_test_p_value": 0.1762,
     "Wilcoxon_p_value": 0.3435,
     "Permutation_p_value": 0.19,
@@ -594,7 +594,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Pyroquilon ",
+    "Metabolite": "Pyroquilon",
     "T_test_p_value": 0.1631,
     "Wilcoxon_p_value": 0.25,
     "Permutation_p_value": 0.228,
@@ -605,7 +605,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Acetyl-β-methylcholine 🟠",
+    "Metabolite": "Acetyl-β-methylcholine",
     "T_test_p_value": 0.0114,
     "Wilcoxon_p_value": 0.3333,
     "Permutation_p_value": 0.308,
@@ -616,7 +616,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Uracil ",
+    "Metabolite": "Uracil",
     "T_test_p_value": 0.2586,
     "Wilcoxon_p_value": 0.1917,
     "Permutation_p_value": 0.264,
@@ -627,7 +627,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Thiamine ",
+    "Metabolite": "Thiamine",
     "T_test_p_value": 0.3349,
     "Wilcoxon_p_value": 0.2669,
     "Permutation_p_value": 0.326,
@@ -638,7 +638,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "D-Glucose 6-phosphate 🟡",
+    "Metabolite": "D-Glucose 6-phosphate",
     "T_test_p_value": 0.0291,
     "Wilcoxon_p_value": 0.1925,
     "Permutation_p_value": 0.034,
@@ -649,7 +649,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "2-[(Dimethylamino)methylidene]indan-1-one 🟠",
+    "Metabolite": "2-[(Dimethylamino)methylidene]indan-1-one",
     "T_test_p_value": 0.0706,
     "Wilcoxon_p_value": 0.0357,
     "Permutation_p_value": 0.063,
@@ -660,7 +660,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "2,2,5,5-tetramethyl-2,5-dihydro-1H-pyrrole-3-carboxamide ",
+    "Metabolite": "2,2,5,5-tetramethyl-2,5-dihydro-1H-pyrrole-3-carboxamide",
     "T_test_p_value": 0.8531,
     "Wilcoxon_p_value": 0.8308,
     "Permutation_p_value": 0.86,
@@ -671,7 +671,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Dihexylamine ",
+    "Metabolite": "Dihexylamine",
     "T_test_p_value": 0.1509,
     "Wilcoxon_p_value": 0.2813,
     "Permutation_p_value": 0.17,
@@ -682,7 +682,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Dipropyleneglycol dibenzoate 🟢",
+    "Metabolite": "Dipropyleneglycol dibenzoate",
     "T_test_p_value": 7.9019e-37,
     "Wilcoxon_p_value": 1.4514e-13,
     "Permutation_p_value": 0,
@@ -693,7 +693,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "DL-Lactic Acid ",
+    "Metabolite": "DL-Lactic Acid",
     "T_test_p_value": 0.7867,
     "Wilcoxon_p_value": 0.8164,
     "Permutation_p_value": 1,
@@ -704,7 +704,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Dodecyl sulfate ",
+    "Metabolite": "Dodecyl sulfate",
     "T_test_p_value": 0.8708,
     "Wilcoxon_p_value": 0.9332,
     "Permutation_p_value": 0.874,
@@ -715,7 +715,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Taurine ",
+    "Metabolite": "Taurine",
     "T_test_p_value": 0.9374,
     "Wilcoxon_p_value": 0.6133,
     "Permutation_p_value": 0.927,
@@ -726,7 +726,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "4-Oxoproline ",
+    "Metabolite": "4-Oxoproline",
     "T_test_p_value": 0.7662,
     "Wilcoxon_p_value": 0.6772,
     "Permutation_p_value": 0.777,
@@ -737,7 +737,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "L-Threonic acid ",
+    "Metabolite": "L-Threonic acid",
     "T_test_p_value": 0.8897,
     "Wilcoxon_p_value": 0.691,
     "Permutation_p_value": 0.896,
@@ -748,7 +748,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "Suberic acid 🟢",
+    "Metabolite": "Suberic acid",
     "T_test_p_value": 0.0002,
     "Wilcoxon_p_value": 2.6313e-12,
     "Permutation_p_value": 0,
@@ -759,7 +759,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "3-Methyladipic acid ",
+    "Metabolite": "3-Methyladipic acid",
     "T_test_p_value": 0.9726,
     "Wilcoxon_p_value": 0.9694,
     "Permutation_p_value": 0.98,
@@ -770,7 +770,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "(2R)-2,3-Dihydroxypropanoic acid ",
+    "Metabolite": "(2R)-2,3-Dihydroxypropanoic acid",
     "T_test_p_value": 0.5451,
     "Wilcoxon_p_value": 0.177,
     "Permutation_p_value": 0.553,
@@ -781,7 +781,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "D-(-)-Fructose ",
+    "Metabolite": "D-(-)-Fructose",
     "T_test_p_value": 0.7992,
     "Wilcoxon_p_value": 0.5599,
     "Permutation_p_value": 0.806,
@@ -792,7 +792,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "D-(+)-Fucose ",
+    "Metabolite": "D-(+)-Fucose",
     "T_test_p_value": 0.5453,
     "Wilcoxon_p_value": 0.9918,
     "Permutation_p_value": 0.574,
@@ -803,7 +803,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "N-Acetylneuraminic acid ",
+    "Metabolite": "N-Acetylneuraminic acid",
     "T_test_p_value": 0.2719,
     "Wilcoxon_p_value": 0.2635,
     "Permutation_p_value": 0.258,
@@ -814,7 +814,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "13(S)-HOTrE 🟠",
+    "Metabolite": "13(S)-HOTrE",
     "T_test_p_value": 0.0545,
     "Wilcoxon_p_value": 0.0226,
     "Permutation_p_value": 0.053,
@@ -825,7 +825,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "2,4,6-Trihydroxyacetophenone ",
+    "Metabolite": "2,4,6-Trihydroxyacetophenone",
     "T_test_p_value": 0.0555,
     "Wilcoxon_p_value": 0.0839,
     "Permutation_p_value": 0.051,
@@ -836,7 +836,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "L-Histidine ",
+    "Metabolite": "L-Histidine",
     "T_test_p_value": 0.2373,
     "Wilcoxon_p_value": 0.2551,
     "Permutation_p_value": 0.234,
@@ -847,7 +847,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "3-Methoxyphenylacetic acid 🟢",
+    "Metabolite": "3-Methoxyphenylacetic acid",
     "T_test_p_value": 7.1366e-12,
     "Wilcoxon_p_value": 9.1703e-10,
     "Permutation_p_value": 0,
@@ -858,7 +858,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "N-Acetylneuraminic acid ",
+    "Metabolite": "N-Acetylneuraminic acid",
     "T_test_p_value": 0.1899,
     "Wilcoxon_p_value": 0.2075,
     "Permutation_p_value": 0.165,
@@ -869,7 +869,7 @@
     "Significant_Permutation": "No"
   },
   {
-    "Metabolite": "N-Acetylalanine 🟢",
+    "Metabolite": "N-Acetylalanine",
     "T_test_p_value": 0.0133,
     "Wilcoxon_p_value": 0.0282,
     "Permutation_p_value": 0.01,
@@ -880,7 +880,7 @@
     "Significant_Permutation": "Yes"
   },
   {
-    "Metabolite": "13(S)-HOTrE ",
+    "Metabolite": "13(S)-HOTrE",
     "T_test_p_value": 0.2277,
     "Wilcoxon_p_value": 0.3333,
     "Permutation_p_value": 0.368,
