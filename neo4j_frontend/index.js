@@ -215,13 +215,7 @@ const updateGraph = (nodes, links) => {
             context.arc(d.x, d.y, circleSize, 0, 2 * Math.PI);
 
             // fill color
-            if (d.labels && d.labels.includes('METABOLITE')) {
-                context.fillStyle = '#4EA8E5';
-            } else if (d.labels && d.labels.includes('PATHWAY')) {
-                context.fillStyle = '#6df1a9';
-            } else {
-                context.fillStyle = '#000000';
-            }
+            context.fillStyle = '#6df1a9';
             context.fill()
 
             context.textAlign = "center"
