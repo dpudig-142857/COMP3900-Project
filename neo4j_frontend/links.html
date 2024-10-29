@@ -42,6 +42,13 @@
             color: #555555;
         }
 
+        #compoundId {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555555;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -75,6 +82,7 @@
     <div class="container">
         <h1>Links for Compound</h1>
         <p id="compoundName"></p>
+        <p id="compoundId"></p>
         <ul>
             <li><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
             <li><a id="pubchemLink" href="#" target="_blank">View on PubChem</a></li>
@@ -84,16 +92,18 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const compoundId = urlParams.get('compoundId');
+        const compoundName = urlParams.get('compoundName');
 
-        if (compoundId) {
-            document.getElementById('compoundName').innerText = `Compound ID: ${compoundId}`;
+        if (compoundId && compoundName) {
+            document.getElementById('compoundName').innerText = `${compoundName}`;
+            document.getElementById('compoundId').innerText = `${compoundId}`;
 
             const keggUrl = `https://www.genome.jp/dbget-bin/www_bget?cpd:${compoundId}`;
             const pubchemUrl = `https://pubchem.ncbi.nlm.nih.gov/compound/${compoundId}`;
             document.getElementById('keggLink').href = keggUrl;
             document.getElementById('pubchemLink').href = pubchemUrl;
         } else {
-            document.getElementById('compoundName').innerText = "Compound ID not provided.";
+            document.getElementById('compoundId').innerText = "Compound ID not provided.";
         }
     </script>
 </body>

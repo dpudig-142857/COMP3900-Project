@@ -351,30 +351,3 @@ function responsiveCanvasSizer() {
     canvas.style.width = `${rect.width}px`
     canvas.style.height = `${rect.height}px`
 }
-
-
-
-/*
-
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const pathwayId = urlParams.get('pathwayId');
-    const pathwayName = urlParams.get('pathwayName'); // Get the pathway name
-
-    if (pathwayId) {
-        document.getElementById('pathwayName').innerText = `Pathway ID: ${pathwayId}`; // Show the ID
-        if (pathwayName) {
-            document.getElementById('pathwayName').innerText += ` - ${pathwayName}`; // Show the pathway name
-        }
-
-        const keggUrl = `https://www.genome.jp/pathway/map${pathwayId}`;
-        document.getElementById('keggLink').href = keggUrl;
-        document.getElementById('keggLink').innerText = "View pathway on KEGG";
-    } else {
-        document.getElementById('pathwayName').innerText = "Pathway ID not provided.";
-        document.getElementById('errorMessage').style.display = 'block';
-    }
-</script>
-
-
-*/
