@@ -42,6 +42,13 @@
             color: #555555;
         }
 
+        #pathwayId {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555555;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -75,6 +82,7 @@
     <div class="container">
         <h1>Pathway Information</h1>
         <p id="pathwayName"></p>
+        <p id="pathwayId"></p>
         <ul>
             <li><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
         </ul>
@@ -84,10 +92,12 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const pathwayId = urlParams.get('pathwayId');
+        const pathwayName = urlParams.get('pathwayName');
 
-        if (pathwayId) {
-            document.getElementById('pathwayName').innerText = `Pathway ID: ${pathwayId}`;
-
+        if (pathwayName && pathwayId) {
+            document.getElementById('pathwayName').innerText = `${pathwayName}`;
+            document.getElementById('pathwayId').innerText = `${pathwayId}`;
+            
             const keggUrl = `https://www.genome.jp/pathway/map${pathwayId}`;
             document.getElementById('keggLink').href = keggUrl;
             document.getElementById('keggLink').innerText = "View pathway on KEGG";

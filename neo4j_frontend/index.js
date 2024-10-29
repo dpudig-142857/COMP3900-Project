@@ -36,13 +36,13 @@ function getPathwayId(pathwayName) {
     return pathwayId || null;
 }
 
-function openLinksPage(id, isCompound) {
+function openLinksPage(id, isCompound, name) {
     if (isCompound) {
-        const url = `links.html?compoundId=${id}`;
+        const url = `links.html?compoundId=${id}&compoundName=${encodeURIComponent(name)}`;
         console.log(`Opening compound page: ${url}`);
         window.open(url, "_blank");
     } else {
-        const url = `pathwaylinks.html?pathwayId=${id}`;
+        const url = `pathwaylinks.html?pathwayId=${id}&pathwayName=${encodeURIComponent(name)}`;
         console.log(`Opening pathway page: ${url}`);
         window.open(url, "_blank");
     }
@@ -275,8 +275,15 @@ const updateGraph = (nodes, links) => {
             context.textAlign = "center"
             context.textBaseline = "middle"
 
+            // Limit text length and add ellipsis if necessary
+            const maxLabelLength = 12;
+            let labelText = d.properties.name || d.properties.title || "";
+            if (labelText.length > maxLabelLength) {
+                labelText = labelText.substring(0, maxLabelLength - 3) + "...";
+            }
+
             // Draws the appropriate text on the node
-            context.strokeText(d.properties.name || d.properties.title, d.x, d.y)
+            context.strokeText(labelText, d.x, d.y)
             context.closePath();
             context.stroke();
         });
@@ -319,9 +326,9 @@ const updateGraph = (nodes, links) => {
                 const pathwayId = getPathwayId(nodeName);
     
                 if (compoundId) {
-                    openLinksPage(compoundId, true);
+                    openLinksPage(compoundId, true, nodeName);
                 } else if (pathwayId) {
-                    openLinksPage(pathwayId, false);
+                    openLinksPage(pathwayId, false, nodeName);
                 } else {
                     alert("Link not available for this node.");
                 }
@@ -345,3 +352,29 @@ function responsiveCanvasSizer() {
     canvas.style.height = `${rect.height}px`
 }
 
+
+
+/*
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const pathwayId = urlParams.get('pathwayId');
+    const pathwayName = urlParams.get('pathwayName'); // Get the pathway name
+
+    if (pathwayId) {
+        document.getElementById('pathwayName').innerText = `Pathway ID: ${pathwayId}`; // Show the ID
+        if (pathwayName) {
+            document.getElementById('pathwayName').innerText += ` - ${pathwayName}`; // Show the pathway name
+        }
+
+        const keggUrl = `https://www.genome.jp/pathway/map${pathwayId}`;
+        document.getElementById('keggLink').href = keggUrl;
+        document.getElementById('keggLink').innerText = "View pathway on KEGG";
+    } else {
+        document.getElementById('pathwayName').innerText = "Pathway ID not provided.";
+        document.getElementById('errorMessage').style.display = 'block';
+    }
+</script>
+
+
+*/
