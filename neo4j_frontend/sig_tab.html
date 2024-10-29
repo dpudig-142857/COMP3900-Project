@@ -88,7 +88,11 @@
                 const bEmoji = b.Metabolite.slice(-2);
                 const aPriority = emojiPriority[aEmoji] || 0;
                 const bPriority = emojiPriority[bEmoji] || 0;
-                return bPriority - aPriority;
+                if (aPriority != bPriority) {
+                    return bPriority - aPriority;
+                } else {
+                    return a.Metabolite.localeCompare(b.Metabolite);
+                }
             });
 
             const tbody = document.getElementById("tableBody");
