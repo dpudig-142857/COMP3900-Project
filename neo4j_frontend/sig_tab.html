@@ -77,9 +77,27 @@
             const response = await fetch("sig_ranked.json");
             const data = await response.json();
 
+            const emojiPriority = {
+                "🟢": 3,
+                "🟡": 2,
+                "🟠": 1
+            };
+
+            const sortedData = data.sort((a, b) => {
+                const aEmoji = a.Metabolite.slice(-2);
+                const bEmoji = b.Metabolite.slice(-2);
+                const aPriority = emojiPriority[aEmoji] || 0;
+                const bPriority = emojiPriority[bEmoji] || 0;
+                if (aPriority != bPriority) {
+                    return bPriority - aPriority;
+                } else {
+                    return a.Metabolite.localeCompare(b.Metabolite);
+                }
+            });
+
             const tbody = document.getElementById("tableBody");
 
-            data.forEach(row => {
+            sortedData.forEach(row => {
                 const tr = document.createElement("tr");
                 tr.setAttribute("data-row", JSON.stringify(row).toLowerCase());
 
