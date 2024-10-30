@@ -20,25 +20,84 @@
 
 </head>
 <body class="bg-light" onload="responsiveCanvasSizer()">
-    <!-- UNSW Crest -->
-    <div class="container text-center mt-4">
-        <img src="crest.jpeg" alt="Crest" class="crest-image">
-    </div>
-    
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Neo4j D3 Visualization</h1>
-        
-        <!-- Significant Metabolites Tab -->
-        <div class="mb-4 text-center">
-            <a href="sig_tab.html" class="btn btn-primary">View Significant Metabolites</a>
+    <!-- Header Section -->
+    <header class="header" style="background-color: #6DF1A9;">
+        <div class="container d-flex align-items-center justify-content-between">
+            <div class="header-left">
+                <img src="eye.jpeg" alt="Deadline Demons Logo" class="logo">
+            </div>
+
+            <div class="header-center">
+                <h1 class="header-title">Neo4j D3 Visualisation</h1>
+            </div>
+
+            <div class="header-right">
+                <a href="sig_tab.html" class="btn btn-primary">View Significant Metabolites</a>
+            </div>
         </div>
-        
+    </header>
+
+    <div class="container my-5 main-content">
+        <div class="left-panel">
+            <!-- Query Entry -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Enter Your Metabolite:</h5>
+                    <input type="text" class="form-control mb-3" placeholder="Metabolite name" id="queryContainer">
+                    
+                    <!-- Selecting the number of neigbours :) -->
+                    <label for="neighborsDropdown" class="form-label text-muted">Number of Neighbors:</label>
+                    <select class="form-select mb-3" id="neighborsDropdown">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <button class="btn btn-primary" onclick="submitQuery()">Run Query</button>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend-section mb-4">
+                <h5 class="legend-title text-muted">Graph Legend</h5>
+                <div class="legend">
+                    <span class="legend-color" style="background-color: #4EA8E5; border-radius: 50%;"></span> 
+                    <span class="legend-label">Metabolite (Blue)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #6DF1A9; border-radius: 50%;"></span> 
+                    <span class="legend-label">Pathway (Green)</span>
+                </div>
+            </div>
+
+            <!-- Zoom Buttons -->
+            <div class="zoom-buttons">
+                <button id="zoomInBtn">Zoom In</button>
+                <button id="resetZoomBtn">Reset Zoom</button>
+            </div>
+            <div class="zoom-buttons">
+                <button id="zoomOutBtn">Zoom Out</button>
+                <button id="saveCanvasBtn">Save Canvas</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="border border-3">
+                <canvas id="graphCanvas" style="width: 100%; height: 600px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div class="container my-5">
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <h5 class="card-title text-muted">Enter Your Cypher Query</h5>
                 <input type="text" class="form-control mb-3" placeholder="Metabolite name" id="queryContainer">
                 
-                <!-- Selecting the number of neigbours :) -->
+                <!-- Selecting the number of neigbours :) ->
                 <label for="neighborsDropdown" class="form-label">Number of Neighbors:</label>
                 <select class="form-select mb-3" id="neighborsDropdown">
                     <option value="0">0</option>
@@ -52,7 +111,7 @@
             </div>
         </div>
 
-        <!--Legends-->
+        <!--Legends->
         <div class="mb-4">
             <h5 class="text-muted">Graph Legend</h5>
             <div class="legend-item">
@@ -60,12 +119,12 @@
                 <span class="legend-label">Metabolite (Blue)</span>
             </div>
             <div class="legend-item">
-                <span class="legend-color" style="background-color: #6df1a9; border-radius: 50%;"></span> 
+                <span class="legend-color" style="background-color: #6DF1A9; border-radius: 50%;"></span> 
                 <span class="legend-label">Pathway (Green)</span>
             </div>
         </div>
 
-        <!--Zoom buttons-->
+        <!--Zoom buttons->
         <div class="zoom-buttons">
             <button id="zoomInBtn">Zoom In</button>
             <button id="zoomOutBtn">Zoom Out</button>
@@ -74,9 +133,9 @@
         </div>
 
         <div class="border border-3">
-            <!-- Canvas for graph visualization -->
+            <!-- Canvas for graph visualization ->
             <canvas id="graphCanvas" style="width: 100%; height: 600px; object-fit: contain;"></canvas>
-        </div>
+        </div>-->
     </div>
 </body>
 </html>

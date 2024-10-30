@@ -10,46 +10,59 @@ body {
     color: rgb(0, 0, 0);
 }
 
-/* Title -> Neo4j D3 Visualization */
-h1 {
-    font-size: 3rem; 
-    color: #000000; 
+.header {
+    background-color: #0056B3;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* The logo unsw */
 .crest-image {
-    max-width: 150px;
+    
+    width: 5%;
     height: auto;
 }
 
-/* Query Border */
-.card {
-    border-radius: 0.5rem; 
-    border: 1px solid #007bff; 
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-/* Query title -> Enter Your Cypher Query */
-.card-title {
-    font-size: 1.5rem;
+.header-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
 }
 
-/* Query answer section and select neighbour section */
-.form-control,
-.form-select {
-    border: 1px solid #ced4da;
-    border-radius: 3rem;
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-/* Sections when used */
-.form-control:focus,
-.form-select:focus {
-    border-color: #007bff; 
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+.header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-title {
+    font-size: 3rem;
+    color: #007BFF;
+    text-align: center;
+    margin: 0;
+    font-family: 'Apple Chancery', cursive;
+    letter-spacing: 1.5px;
+}
+
+.logo {
+    width: 25%;
+    height: auto;
 }
 
 /* Run query button */
 .btn-primary {
-    background-color: #007bff;  
+    background-color: #007BFF;  
     border-radius: 0.5rem; 
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -61,17 +74,61 @@ h1 {
     transform: scale(1.05);
 }
 
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+.left-panel {
+    flex: 1;
+    max-width: 300px;
+}
+
+.right-panel {
+    flex: 3;
+}
+
+.legend-section {
+    margin-bottom: 20px;
+}
+
+/* Query Border */
+.card {
+    border-radius: 0.5rem; 
+    border: 1px solid #007BFF; 
+}
+
+/* Query title -> Enter Your Cypher Query */
+.card-title, .form-label {
+    font-size: 1.5rem;
+}
+
+/* Query answer section and select neighbour section */
+.form-control,
+.form-select {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+}
+
+/* Sections when used */
+.form-control:focus,
+.form-select:focus {
+    border-color: #007BFF; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
 /* Canvas section */
 #graphCanvas {
-    border: 2px solid #007bff;
-    background-color: #ffffff;
+    border: 2px solid #007BFF;
+    background-color: #FFFFFF;
 }
 
 /* Legend */
-.legend-item {
+.legend {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    display: inline-block;
 }
 
 .legend-color {
@@ -79,6 +136,10 @@ h1 {
     height: 20px;
     margin-right: 10px;
     display: inline-block;
+}
+
+.legend-label {
+    font-size: 1.1rem;
 }
 
 /* Zoom Buttons */
@@ -90,7 +151,7 @@ h1 {
 }
 
 .zoom-buttons button {
-    background-color: #007bff;
+    background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 0.5rem;
@@ -101,7 +162,7 @@ h1 {
 }
 
 .zoom-buttons button:hover {
-    background-color: #0056b3;
+    background-color: #0056B3;
     transform: scale(1.05);
 }
 
