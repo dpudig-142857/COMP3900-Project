@@ -71,7 +71,7 @@ def main():
     metabol = []
     with sqlite3.connect('compounds.db') as conn:
         cur = conn.cursor()
-        cur.execute('''SELECT compound_id, MIN(compound_name) as compound_name
+        cur.execute('''SELECT compound_id, compound_name
                     FROM compounds
                     GROUP BY compound_id
                     ''')
@@ -99,8 +99,5 @@ def main():
             
     print(metabol)
  
-#print(get_hmdb_id("Dodecyl sulfate"))
-#print(get_kegg_pathways("Taurine"))
 main()
-#CALL db.schema.visualization
 
