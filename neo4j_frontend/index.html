@@ -62,7 +62,11 @@
             <!-- Legend -->
             <div class="legend-section mb-4">
                 <h5 class="legend-title text-muted">Graph Legend</h5>
-                <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #FF6F61; border-radius: 50%;"></span>
+                    <span class="legend-label">Searched Metabolite (Red)</span>
+                </div>
+                <div class="legend-item">
                     <span class="legend-color" style="background-color: #4EA8E5; border-radius: 50%;"></span> 
                     <span class="legend-label">Metabolite (Blue)</span>
                 </div>
@@ -75,10 +79,10 @@
             <!-- Zoom Buttons -->
             <div class="zoom-buttons">
                 <button id="zoomInBtn">Zoom In</button>
-                <button id="resetZoomBtn">Reset Zoom</button>
+                <button id="zoomOutBtn">Zoom Out</button>
             </div>
             <div class="zoom-buttons">
-                <button id="zoomOutBtn">Zoom Out</button>
+                <button id="resetZoomBtn">Reset Zoom</button>
                 <button id="saveCanvasBtn">Save Canvas</button>
             </div>
         </div>
@@ -88,7 +92,7 @@
                 <canvas id="graphCanvas" style="width: 100%; height: 600px;"></canvas>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!--
     <div class="container my-5">
@@ -115,6 +119,10 @@
         <div class="mb-4">
             <h5 class="text-muted">Graph Legend</h5>
             <div class="legend-item">
+                <span class="legend-color" style="background-color: #FF6F61; border-radius: 50%;"></span>
+                <span class="legend-label">Searched Metabolite (Red)</span>
+            </div>
+            <div class="legend-item">
                 <span class="legend-color" style="background-color: #4EA8E5; border-radius: 50%;"></span> 
                 <span class="legend-label">Metabolite (Blue)</span>
             </div>
@@ -135,8 +143,8 @@
         <div class="border border-3">
             <!-- Canvas for graph visualization ->
             <canvas id="graphCanvas" style="width: 100%; height: 600px; object-fit: contain;"></canvas>
-        </div>-->
-    </div>
+        </div>
+    </div>-->
 </body>
 </html>
 

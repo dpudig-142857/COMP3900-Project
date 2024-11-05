@@ -8,6 +8,8 @@ const circleSize = 30
 const arrowHeight = 5
 const arrowWidth = 5
 
+var searchedMetabolite = ""
+
 let compoundsData = [];
 let pathwaysData = {};
 fetch('compounds.json')
@@ -66,9 +68,9 @@ const submitQuery = () => {
     neighbors = document.querySelector('#neighborsDropdown').value;
     
     numbersStr = numbersStr.split("/");
-    const metaboliteName = numbersStr[0]
+    searchedMetabolite = numbersStr[0]
 
-    let start = `match (m0 {name: '${metaboliteName}'})`;
+    let start = `match (m0 {name: '${searchedMetabolite}'})`;
     let end = ` return m0`;
 
     for (let i = 0; i < neighbors; i++) {
@@ -134,22 +136,22 @@ const submitQuery = () => {
         });
 }
 
-// create a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
+// create a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element/
 const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    // const centerX = width / 2;
-    // const centerY = height / 2;
+    /*const centerX = width / 2;
+    const centerY = height / 2;
 
-    // // Centering the nodes on the canvas
-    // nodes.forEach((node, index) => {
+    // Centering the nodes on the canvas
+    nodes.forEach((node, index) => {
 
-    //     // spreading the nodes apart
-    //     const angle = (index / nodes.length) * 2 * Math.PI;
-    //     node.x = centerX + (Math.cos(angle) * 100);
-    //     node.y = centerY + (Math.sin(angle) * 100);
-    // });
+        // spreading the nodes apart
+        const angle = (index / nodes.length) * 2 * Math.PI;
+        node.x = centerX + (Math.cos(angle) * 100);
+        node.y = centerY + (Math.sin(angle) * 100);
+    });*/
 
     let transform = d3.zoomIdentity;
 
@@ -162,10 +164,10 @@ const updateGraph = (nodes, links) => {
             return d.id;
         });
 
-    /*
-    This defines a new D3 Force Simulation which controls the physical behavior of how nodes and links interact.
-    https://github.com/d3/d3-force#simulation
-    */
+    
+    // This defines a new D3 Force Simulation which controls the physical behavior of how nodes and links interact.
+    // https://github.com/d3/d3-force#simulation
+    
     let simulation = new d3.forceSimulation()
         .force('chargeForce', d3.forceManyBody().strength())
         .force('collideForce', d3.forceCollide(circleSize * 3))
@@ -263,7 +265,9 @@ const updateGraph = (nodes, links) => {
             context.arc(d.x, d.y, circleSize, 0, 2 * Math.PI);
 
             // fill color
-            if (d.labels && d.labels.includes('METABOLITE')) {
+            if (d.properties.name == searchedMetabolite) {
+                context.fillStyle = '#FF6F61';
+            } else if (d.labels && d.labels.includes('METABOLITE')) {
                 context.fillStyle = '#4EA8E5';
             } else if (d.labels && d.labels.includes('PATHWAY')) {
                 context.fillStyle = '#6df1a9';

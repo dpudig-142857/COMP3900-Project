@@ -16,12 +16,6 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.crest-image {
-    
-    width: 5%;
-    height: auto;
-}
-
 .header .container {
     display: flex;
     align-items: center;
@@ -34,16 +28,15 @@ body {
     justify-content: flex-start;
 }
 
+.logo {
+    width: 25%;
+    height: auto;
+}
+
 .header-center {
     flex: 1;
     display: flex;
     justify-content: center;
-}
-
-.header-right {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
 }
 
 .header-title {
@@ -55,9 +48,10 @@ body {
     letter-spacing: 1.5px;
 }
 
-.logo {
-    width: 25%;
-    height: auto;
+.header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* Run query button */
@@ -124,17 +118,22 @@ body {
 }
 
 /* Legend */
-.legend {
+.legend-section {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
     display: inline-block;
 }
 
+.legend-item {
+    padding-bottom: 10px;
+}
+
 .legend-color {
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    vertical-align: top;
     display: inline-block;
 }
 
