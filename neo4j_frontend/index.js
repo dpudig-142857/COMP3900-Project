@@ -139,17 +139,17 @@ const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    // const centerX = width / 2;
-    // const centerY = height / 2;
+    const centerX = width / 2;
+    const centerY = height / 2;
 
-    // // Centering the nodes on the canvas
-    // nodes.forEach((node, index) => {
+    // Centering the nodes on the canvas
+    nodes.forEach((node, index) => {
 
-    //     // spreading the nodes apart
-    //     const angle = (index / nodes.length) * 2 * Math.PI;
-    //     node.x = centerX + (Math.cos(angle) * 100);
-    //     node.y = centerY + (Math.sin(angle) * 100);
-    // });
+        // spreading the nodes apart
+        const angle = (index / nodes.length) * 2 * Math.PI;
+        node.x = centerX + (Math.cos(angle) * 100);
+        node.y = centerY + (Math.sin(angle) * 100);
+    });
 
     let transform = d3.zoomIdentity;
 
@@ -312,6 +312,7 @@ const updateGraph = (nodes, links) => {
 
     canvas.addEventListener('click', event => {
         const rect = canvas.getBoundingClientRect();
+        console.log("dimensions:", rect);
         const mouseX = (event.clientX - rect.left - transform.x) / transform.k;
         const mouseY = (event.clientY - rect.top - transform.y) / transform.k;
     
@@ -344,8 +345,8 @@ function responsiveCanvasSizer() {
     const dpr = window.devicePixelRatio
 
     // Set the "actual" size of the canvas
-    canvas.width = rect.width * dpr
-    canvas.height = rect.height * dpr
+    canvas.width = rect.width 
+    canvas.height = rect.height
 
     // Set the "drawn" size of the canvas
     canvas.style.width = `${rect.width}px`
