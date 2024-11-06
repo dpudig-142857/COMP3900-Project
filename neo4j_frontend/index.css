@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,13 +5,12 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif; 
+    font-family: 'Times New Roman', sans-serif; 
     color: rgb(0, 0, 0);
 }
 
 .header {
-    background-color: #0056B3;
-    padding: 1rem 0;
+    background-color: #6DF1A9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -23,13 +21,13 @@ body {
 }
 
 .header-left {
-    flex: 1;
+    flex: 0 0 auto;
     display: flex;
     justify-content: flex-start;
 }
 
 .logo {
-    width: 25%;
+    width: 100px;
     height: auto;
 }
 
@@ -39,7 +37,8 @@ body {
     justify-content: center;
 }
 
-.header-title {
+.title {
+    padding: 1rem 1rem;
     font-size: 3rem;
     color: #007BFF;
     text-align: center;
@@ -49,9 +48,21 @@ body {
 }
 
 .header-right {
-    flex: 1;
-    display: flex;
+    flex: 0;
+    display: inline-block;
+    padding: 1rem 1rem;
+    color: #007BFF;
+    font-size: 1rem;
+    cursor: pointer;
+    /* border-left: 2px solid #007BFF; */
+    margin-left: 1rem;
+    text-align: center;
     justify-content: flex-end;
+}
+
+.header-right:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Run query button */
@@ -68,6 +79,14 @@ body {
     transform: scale(1.05);
 }
 
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
 .main-content {
     display: flex;
     gap: 20px;
@@ -76,14 +95,11 @@ body {
 .left-panel {
     flex: 1;
     max-width: 300px;
+    padding-left: -50px;
 }
 
 .right-panel {
     flex: 3;
-}
-
-.legend-section {
-    margin-bottom: 20px;
 }
 
 /* Query Border */
@@ -92,7 +108,7 @@ body {
     border: 1px solid #007BFF; 
 }
 
-/* Query title -> Enter Your Cypher Query */
+/* Query title */
 .card-title, .form-label {
     font-size: 1.5rem;
 }
@@ -102,6 +118,10 @@ body {
 .form-select {
     border: 1px solid #CED4DA;
     border-radius: 3rem;
+}
+
+.form-control::placeholder {
+    color: #000000;
 }
 
 /* Sections when used */
@@ -123,6 +143,15 @@ body {
     align-items: center;
     margin-bottom: 5px;
     display: inline-block;
+    padding: 10px;
+    padding-right: 100px;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem; 
+    background-color: #f9f9f9;
+}
+
+.legend-title {
+    padding-bottom: 10px;
 }
 
 .legend-item {

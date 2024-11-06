@@ -51,24 +51,15 @@ function openLinksPage(id, isCompound, name) {
 }
 
 const submitQuery = () => {
-    console.log("Startcalled");
     // Create new, empty objects to hold the nodes and relationships returned by the query results
     let nodeItemMap = {}
     let linkItemMap = {}
 
     // contents of the query text field
-    
-    //const metabolite_name = document.querySelector('#queryContainer').value
-    //const cypherString =`MATCH (m:METABOLITE name: ${metabolite_name})--(neighbor) RETURN m.name AS metabolite, neighbor.name AS neighbor` 
-
-    // Construct the Cypher query with the parameterized metabolite name
-    
-    
-    numbersStr = document.querySelector('#queryContainer').value;
+    numbersStr = document.querySelector('#queryContainer').value.split("/");
     neighbors = document.querySelector('#neighborsDropdown').value;
-    
-    numbersStr = numbersStr.split("/");
-    searchedMetabolite = numbersStr[0]
+
+    searchedMetabolite = numbersStr[0];
 
     let start = `match (m0 {name: '${searchedMetabolite}'})`;
     let end = ` return m0`;
@@ -80,11 +71,8 @@ const submitQuery = () => {
 
     const cypherString = start+end+` limit 300`;
 
-    // const cypherString = document.querySelector('#queryContainer').value
-
-    // document.write(cypherString);
     // make POST request with auth headers
-    let response = fetch(neo4j_http_url, {
+    fetch(neo4j_http_url, {
         method: 'POST',
         // authentication using the username and password of the user in Neo4j
         headers: {
@@ -108,7 +96,7 @@ const submitQuery = () => {
             if (data.results != null && data.results.length > 0 && data.results[0].data != null && data.results[0].data.length > 0) {
                 let neo4jDataItmArray = data.results[0].data;
                 neo4jDataItmArray.forEach(function (dataItem) { // iterate through all items in the embedded 'results' element returned from Neo4j, https://neo4j.com/docs/http-api/current/actions/result-format/
-                    //Node
+                    // Node
                     if (dataItem.graph.nodes != null && dataItem.graph.nodes.length > 0) {
                         let neo4jNodeItmArray = dataItem.graph.nodes; // all nodes present in the results item
                         neo4jNodeItmArray.forEach(function (nodeItm) {
@@ -116,7 +104,7 @@ const submitQuery = () => {
                                 nodeItemMap[nodeItm.id] = nodeItm;
                         });
                     }
-                    //Link, interchangeably called a relationship
+                    // Link, interchangeably called a relationship
                     if (dataItem.graph.relationships != null && dataItem.graph.relationships.length > 0) {
                         let neo4jLinkItmArray = dataItem.graph.relationships; // all relationships present in the results item
                         neo4jLinkItmArray.forEach(function (linkItm) {
@@ -141,7 +129,8 @@ const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    /*const centerX = width / 2;
+    /*
+    const centerX = width / 2;
     const centerY = height / 2;
 
     // Centering the nodes on the canvas
@@ -151,7 +140,8 @@ const updateGraph = (nodes, links) => {
         const angle = (index / nodes.length) * 2 * Math.PI;
         node.x = centerX + (Math.cos(angle) * 100);
         node.y = centerY + (Math.sin(angle) * 100);
-    });*/
+    });
+    */
 
     let transform = d3.zoomIdentity;
 
@@ -266,7 +256,7 @@ const updateGraph = (nodes, links) => {
 
             // fill color
             if (d.properties.name == searchedMetabolite) {
-                context.fillStyle = '#FF6F61';
+                context.fillStyle = '#A865B5';
             } else if (d.labels && d.labels.includes('METABOLITE')) {
                 context.fillStyle = '#4EA8E5';
             } else if (d.labels && d.labels.includes('PATHWAY')) {
@@ -344,12 +334,10 @@ const updateGraph = (nodes, links) => {
 function responsiveCanvasSizer() {
     const canvas = document.querySelector('canvas')
     const rect = canvas.getBoundingClientRect()
-    // ratio of the resolution in physical pixels to the resolution in CSS pixels
-    const dpr = window.devicePixelRatio
 
     // Set the "actual" size of the canvas
-    canvas.width = rect.width * dpr
-    canvas.height = rect.height * dpr
+    canvas.width = rect.width
+    canvas.height = rect.height
 
     // Set the "drawn" size of the canvas
     canvas.style.width = `${rect.width}px`
