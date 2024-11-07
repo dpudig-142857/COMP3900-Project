@@ -23,7 +23,7 @@
             </div>
 
             <div class="header-center">
-                <h1 class="title">Significant Metabolites Overview</h1>
+                <h1 class="title">SIGNIFICANT METABOLITES OVERVIEW</h1>
             </div>
 
             <div class="header-right clickable-section" onclick="window.history.back()">
@@ -37,13 +37,24 @@
             <!-- Query Entry -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
-                    <input type="text" class="filter mb-3" placeholder="Type to filter results..." oninput="filterResults()" id="filter">
+                    <input type="text" class="filter" placeholder="Type to filter results..." oninput="filterResults()" id="filter">
+                    
+                    <select class="sort-select" id="sortingDropdown" onchange="sortResults()">
+                        <option value="" disabled selected>Sort by...</option>
+                        <option value="0">Name</option>
+                        <option value="1">Emoji</option>
+                        <option value="2">T-test</option>
+                        <option value="3">Wilcoxon</option>
+                        <option value="4">Permutation</option>
+                        <option value="5">CVG Samples</option>
+                        <option value="6">CVH Samples</option>
+                    </select>
                 </div>
             </div>
 
             <!-- Legend -->
             <div class="legend-section mb-4">
-                <h3>Legend</h3>
+                <h3 class="text-muted">Legend</h3>
                 <p>Only metabolites with sufficient data for statistical testing are displayed.</p>
                 <p><strong>p-values:</strong> The p-values for each statistical test used (T-test, Wilcoxon Rank-Sum Test, Permutation Test).</p>
                 <p><strong>CVG Samples:</strong> Number of samples in the CVG group.</p>
@@ -61,13 +72,13 @@
 
         <div class="right-panel">
             <div class="border border-3">
-                <table id="resultsTable">
+                <table class="resultsTable" id="resultsTable">
                     <thead>
                         <tr>
-                            <th rowspan="3">Metabolite</th>
+                            <th class="metabolites" rowspan="3">Metabolite</th>
                             <th colspan="3">p-values</th>
-                            <th rowspan="2">CVG Samples</th>
-                            <th rowspan="2">CVH Samples</th>
+                            <th class="cvg" rowspan="2">CVG Samples</th>
+                            <th class="cvh" rowspan="2">CVH Samples</th>
                             <th colspan="3">Significance</th>
                         </tr>
                         <tr>

@@ -40,11 +40,11 @@ function getPathwayId(pathwayName) {
 
 function openLinksPage(id, isCompound, name) {
     if (isCompound) {
-        const url = `links.html?compoundId=${id}&compoundName=${encodeURIComponent(name)}`;
+        const url = `compound_tab.html?compoundId=${id}&compoundName=${encodeURIComponent(name)}`;
         console.log(`Opening compound page: ${url}`);
         window.open(url, "_blank");
     } else {
-        const url = `pathwaylinks.html?pathwayId=${id}&pathwayName=${encodeURIComponent(name)}`;
+        const url = `pathway_tab.html?pathwayId=${id}&pathwayName=${encodeURIComponent(name)}`;
         console.log(`Opening pathway page: ${url}`);
         window.open(url, "_blank");
     }
@@ -179,7 +179,7 @@ const updateGraph = (nodes, links) => {
         simulationUpdate();
     }
 
-    // ZOOM BUTOONNSSS
+    // Zoom Buttons
     const zoom = d3.zoom()
         .scaleExtent([0.5, 5])
         .on('zoom', (event) => {
@@ -268,16 +268,18 @@ const updateGraph = (nodes, links) => {
 
             context.textAlign = "center"
             context.textBaseline = "middle"
+            context.fillStyle = "#000000"
+            context.font = '12px Arial'
 
             // Limit text length and add ellipsis if necessary
-            const maxLabelLength = 12;
+            const maxLabelLength = 10;
             let labelText = d.properties.name || d.properties.title || "";
-            if (labelText.length > maxLabelLength) {
+            if (labelText.length > maxLabelLength - 3) {
                 labelText = labelText.substring(0, maxLabelLength - 3) + "...";
             }
 
             // Draws the appropriate text on the node
-            context.strokeText(labelText, d.x, d.y)
+            context.fillText(labelText, d.x, d.y)
             context.closePath();
             context.stroke();
         });

@@ -5,19 +5,9 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-
-th { background-color: #f2f2f2; }
 .header {
     background-color: #6DF1A9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -49,10 +39,11 @@ th { background-color: #f2f2f2; }
 .title {
     padding: 1rem 1rem;
     font-size: 3rem;
-    color: #007BFF;
+    color: #000000;
     text-align: center;
     margin: 0;
-    font-family: 'Apple Chancery', cursive;
+    font-family: 'Roboto';
+    font-weight: bold;
     letter-spacing: 1.5px;
 }
 
@@ -60,7 +51,7 @@ th { background-color: #f2f2f2; }
     flex: 0;
     display: inline-block;
     padding: 1rem 1rem;
-    color: #007BFF;
+    color: #000000;
     font-size: 1rem;
     cursor: pointer;
     /* border-left: 2px solid #007BFF; */
@@ -91,38 +82,49 @@ th { background-color: #f2f2f2; }
 /* Query Border */
 .card {
     border-radius: 0.5rem; 
-    border: 1px solid #007BFF; 
+    border: 1px solid #007BFF;
 }
 
-/* Query title */
-.card-title, .form-label {
-    font-size: 1.5rem;
+.card-body {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Filter input section */
 .filter {
     border: 1px solid #CED4DA;
     border-radius: 3rem;
+    padding: 8px;
+    flex: 1;
+    max-width: 150px;
+}
+
+.sort-select {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+    padding: 8px;
+    max-width: 120px;
+}
+
+.filter::placeholder,
+.sort-select::placeholder {
+    color: #000000;
 }
 
 /* Filter when used */
-.filter:focus {
+.filter:focus,
+.sort-select:focus {
     border-color: #007BFF; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-}
-
-#filterInput {
-    margin-bottom: 15px;
-    padding: 8px;
-    width: 100%;
-    max-width: 400px;
+    outline: none;
 }
 
 .legend-section {
-    margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
+    border-radius: 0.5rem;
 }
 
 .legend-section h3 {
@@ -131,4 +133,25 @@ th { background-color: #f2f2f2; }
 
 .legend-section p {
     margin: 5px 0;
+}
+
+.resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.resultsTable th,
+.resultsTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.resultsTable th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.metabolites {
+    width: 300px;
 }
