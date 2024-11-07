@@ -1,9 +1,17 @@
+// Order of priority of emoji's
 const emojiPriority = {
     "🟢": 3,
     "🟡": 2,
     "🟠": 1
 };
 
+// loadResults
+//      - Loads the results from the json file into the table
+//      - Sorts the table by emoji
+//
+// Returns:
+//      - nothing
+//
 async function loadResults() {
     const response = await fetch("sig_ranked.json");
     const data = await response.json();
@@ -41,6 +49,12 @@ async function loadResults() {
     });
 }
 
+// loadResults
+//      - Filters the results to find the given filter text
+//
+// Returns:
+//      - nothing
+//
 function filterResults() {
     const filter = document.getElementById("filter").value.toLowerCase();
     const rows = document.querySelectorAll("#resultsTable tbody tr");
@@ -51,6 +65,12 @@ function filterResults() {
     });
 }
 
+// sortResults
+//      - Sorts the results on the method given by the dropdown box and the direction buttons
+//
+// Returns:
+//      - nothing
+//
 function sortResults() {
     const method = document.getElementById("sortingDropdown").value || 1;
     const direction = document.getElementById('asc').checked ? "asc" :
@@ -105,36 +125,38 @@ function sortResults() {
     rows.forEach(row => tableBody.appendChild(row));
 }
 
+// sortResults
+//      - Changes the names of the direction buttons to match the current sorting method
+//
+// Returns:
+//      - nothing
+//
 function changeOptions() {
     const method = document.getElementById("sortingDropdown").value;
     const direction = document.getElementById("sort-direction");
     const asc = document.getElementById("asc");
     const desc = document.getElementById("desc");
-
-    direction.style.display = "none";
+    direction.style.display = "block";
 
     if (method == "0") {
-        // 3-0 or 0-3
-        direction.style.display = "block";
+        // Sort by Emoji (3-0 or 0-3)
         document.querySelector("label[for='asc']").textContent = "3 - 0";
         document.querySelector("label[for='desc']").textContent = "0 - 3";
     } else if (method == "1") {
-        // A-Z or Z-A
-        direction.style.display = "block";
+        // Sort by Name (A-Z or Z-A)
         document.querySelector("label[for='asc']").textContent = "A - Z";
         document.querySelector("label[for='desc']").textContent = "Z - A";
     } else if (method == "2" || method == "3" || method == "4") {
-        // 1-0 or 0-1
-        direction.style.display = "block";
+        // Sort by T-test, Wilcoxon or Permutation (1-0 or 0-1)
         document.querySelector("label[for='asc']").textContent = "1 - 0";
         document.querySelector("label[for='desc']").textContent = "0 - 1";
     } else {
-        // high or low
-        direction.style.display = "block";
+        // Sort by CVG Samples or CVH Samples (High-Low or Low-High)
         document.querySelector("label[for='asc']").textContent = "High";
         document.querySelector("label[for='desc']").textContent = "Low";
     }
 
+    // Keep the same option for the direction
     if (asc.checked) {
         asc.checked=true;
     } else if (desc.checked) {

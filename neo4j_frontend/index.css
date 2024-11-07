@@ -9,17 +9,13 @@ body {
     color: rgb(0, 0, 0);
 }
 
+/* Header box */
 .header {
     background-color: #6DF1A9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.header .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
+/* Logo on the left */
 .header-left {
     flex: 0 0 auto;
     display: flex;
@@ -31,6 +27,7 @@ body {
     height: auto;
 }
 
+/* Title in the middle */
 .header-center {
     flex: 1;
     display: flex;
@@ -48,6 +45,7 @@ body {
     letter-spacing: 1.5px;
 }
 
+/* Significance Table Link on the right */
 .header-right {
     flex: 0;
     display: inline-block;
@@ -55,7 +53,6 @@ body {
     color: #000000;
     font-size: 1rem;
     cursor: pointer;
-    /* border-left: 2px solid #007BFF; */
     margin-left: 1rem;
     text-align: center;
     justify-content: flex-end;
@@ -66,40 +63,16 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Run query button */
-.btn-primary {
-    background-color: #007BFF;  
-    border-radius: 0.5rem; 
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-}
-
-/* Run query button when user hovers over it */
-.btn-primary:hover {
-    background-color: #004085;
-    transform: scale(1.05);
-}
-
-.btn-primary:active {
-    transform: scale(0.95);
-}
-
-.btn-primary:focus {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
+/* Everything below the header */
 .main-content {
     display: flex;
     gap: 20px;
 }
 
+/* Left side of main content */
 .left-panel {
     flex: 1;
     max-width: 300px;
-}
-
-.right-panel {
-    flex: 3;
 }
 
 /* Query Border */
@@ -115,21 +88,36 @@ body {
     border-radius: 3rem;
 }
 
-.form-control::placeholder {
+.form-control::placeholder,
+.form-select::placeholder {
     color: #000000;
 }
 
-/* Sections when used */
 .form-control:focus,
 .form-select:focus {
     border-color: #007BFF; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
 
-/* Canvas section */
-#graphCanvas {
-    border: 2px solid #007BFF;
-    background-color: #FFFFFF;
+/* Run query button */
+.btn-primary {
+    background-color: #007BFF;  
+    border-radius: 0.5rem; 
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #004085;
+    transform: scale(1.05);
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Legend */
@@ -195,4 +183,15 @@ body {
 
 .zoom-buttons button:focus {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Right side of main content */
+.right-panel {
+    flex: 3;
+}
+
+/* Canvas section */
+#graphCanvas {
+    border: 2px solid #007BFF;
+    background-color: #FFFFFF;
 }

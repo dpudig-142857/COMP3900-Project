@@ -3,13 +3,14 @@ const neo4j_http_url = "http://localhost:7474/db/neo4j/tx"
 const neo4jUsername = "neo4j"
 const neo4jPassword = "password"
 
-// used for drawing nodes and arrows later on
+// Used for drawing nodes and arrows later on
 const circleSize = 30
 const arrowHeight = 5
 const arrowWidth = 5
 
 var searchedMetabolite = ""
 
+// Fetch all of the data from neo4j
 let compoundsData = [];
 let pathwaysData = {};
 fetch('compounds.json')
@@ -28,17 +29,48 @@ fetch('pathways.json')
     })
     .catch(error => console.error("Error loading pathways data:", error));
 
+// getCompoundId
+//      - If the compound exists, gets the compound ID from the name
+//
+// Parameters:
+//      - compoundName (string) - the name of the compound that may or may not exist
+//
+// Returns:
+//      - the id of the compound or
+//      - null
+//
 function getCompoundId(compoundName) {
     const compound = compoundsData.find(c => c.compound_name === compoundName);
     return compound ? compound.compound_id : null;
 }
 
+// getPathwayId
+//      - If the pathway exists, gets the pathway ID from the name
+//
+// Parameters:
+//      - pathwayName (string) - the name of the pathway that may or may not exist
+//
+// Returns:
+//      - the id of the pathway or
+//      - null
+//
 function getPathwayId(pathwayName) {
     const pathwayId = pathwaysData[pathwayName];
     return pathwayId || null;
 }
 
-function openLinksPage(id, isCompound, name) {
+// openLinksPage
+//      - Opens the specialised link for either compounds or pathways and displays its information
+//
+// Parameters:
+//      - isCompound (bool) - true if it is a compound, false if it is a pathway
+//      - id (string) - the id of the compound or pathway
+//      - name (string) - the name of the compound or pathway
+//
+// Returns:
+//      - nothing
+//
+function openLinksPage(isCompound, id, name) {
     if (isCompound) {
         const url = `compound_tab.html?compoundId=${id}&compoundName=${encodeURIComponent(name)}`;
         console.log(`Opening compound page: ${url}`);
@@ -50,25 +82,29 @@ function openLinksPage(id, isCompound, name) {
     }
 }
 
+// submitQuery
+//      - Submits Query to Neo4j based on given metabolite and number of neighbours
+//
+// Returns:
+//      - nothing
+// 
 const submitQuery = () => {
     // Create new, empty objects to hold the nodes and relationships returned by the query results
     let nodeItemMap = {}
     let linkItemMap = {}
 
-    // contents of the query text field
+    // Contents of the query text field
     numbersStr = document.querySelector('#queryContainer').value.split("/");
     neighbors = document.querySelector('#neighborsDropdown').value;
-
     searchedMetabolite = numbersStr[0];
 
+    // Generate Cypher Query
     let start = `match (m0 {name: '${searchedMetabolite}'})`;
     let end = ` return m0`;
-
     for (let i = 0; i < neighbors; i++) {
         start += `-[r${i+1}:LINKED]-(m${i+1})`
         end += `,r${i+1},m${i+1}` 
     }
-
     const cypherString = start+end+` limit 300`;
 
     // make POST request with auth headers
@@ -124,7 +160,16 @@ const submitQuery = () => {
         });
 }
 
-// create a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element/
+// openLinksPage
+//      - Creates a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
+//
+// Parameters:
+//      - nodes (array) - all of the nodes on the graph
+//      - links (array) - all of the links between nodes on the graph
+//
+// Returns:
+//      - nothing
+//
 const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
@@ -216,7 +261,7 @@ const updateGraph = (nodes, links) => {
         document.body.removeChild(link);
     };
 
-    //The canvas is cleared and then instructed to draw each node and link with updated locations per the physical force simulation.
+    // The canvas is cleared and then instructed to draw each node and link with updated locations per the physical force simulation.
     function simulationUpdate() {
         let context = canvas.getContext('2d');
         context.save(); // save canvas state, only rerender what's needed
@@ -322,9 +367,9 @@ const updateGraph = (nodes, links) => {
                 const pathwayId = getPathwayId(nodeName);
     
                 if (compoundId) {
-                    openLinksPage(compoundId, true, nodeName);
+                    openLinksPage(true, compoundId,, nodeName);
                 } else if (pathwayId) {
-                    openLinksPage(pathwayId, false, nodeName);
+                    openLinksPage(false, pathwayId, nodeName);
                 } else {
                     alert("Link not available for this node.");
                 }
@@ -333,6 +378,12 @@ const updateGraph = (nodes, links) => {
     });
 }
 
+// responsiveCanvasSizer
+//      - Resizes the canvas to fit the user's screen
+//
+// Returns:
+//      - nothing
+//
 function responsiveCanvasSizer() {
     const canvas = document.querySelector('canvas')
     const rect = canvas.getBoundingClientRect()
