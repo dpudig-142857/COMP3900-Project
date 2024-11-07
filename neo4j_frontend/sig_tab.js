@@ -52,7 +52,9 @@ function filterResults() {
 }
 
 function sortResults() {
-    const method = document.getElementById("sortingDropdown").value;
+    const method = document.getElementById("sortingDropdown").value || 1;
+    const direction = document.getElementById('asc').checked ? "asc" :
+                      document.getElementById('desc').checked ? "desc" : "asc";
     const tableBody = document.querySelector("#resultsTable tbody");
     const rows = Array.from(tableBody.querySelectorAll("tr"));
     const getNameData = (row) => {
@@ -66,28 +68,82 @@ function sortResults() {
     rows.sort((a, b) => {
         const { name: nameA, priority: priorityA } = getNameData(a);
         const { name: nameB, priority: priorityB } = getNameData(b);
-        
+        const compareNames = nameA.localeCompare(nameB);
+        const compareEmoji = priorityB - priorityA;
+
         if (method == "0") {
-            // Sort by Name
-            const compare = nameA.localeCompare(nameB);
-            return compare != 0 ? compare : priorityB - priorityA;
-        } else if (method == "1") {
             // Sort by Emoji
-            const compare = priorityB - priorityA;
-            return compare != 0 ? compare : nameA.localeCompare(nameB);
+            if (direction === "asc") {
+                return compareEmoji != 0 ? compareEmoji : compareNames;
+            } else {
+                return compareEmoji != 0 ? -compareEmoji : -compareNames;
+            }
+        } else if (method == "1") {
+            // Sort by Name
+            if (direction === "asc") {
+                return compareNames != 0 ? compareNames : compareEmoji;
+            } else {
+                return compareNames != 0 ? -compareNames : -compareEmoji;
+            }
         } else {
-            // Sort by T-test, Wilcoxon, Permutation, CVG Samples and CVH Samples
+            // Sort by T-test, Wilcoxon, Permutation, CVG Samples or CVH Samples
             const numA = parseFloat(a.querySelector("td:nth-child("+ method + ")").textContent.trim());
             const numB = parseFloat(b.querySelector("td:nth-child("+ method + ")").textContent.trim());
+            const compareNums = numB - numA;
 
-            const compare = numB - numA;
-            const priority = priorityB - priorityA;
-            return compare != 0 ? compare : priority != 0 ? priority : nameA.localeCompare(nameB);
+            if (direction === "asc") {
+                return compareNums != 0 ? compareNums :
+                        compareEmoji != 0 ? compareEmoji : compareNames;
+            } else {
+                return compareNums != 0 ? -compareNums :
+                        compareEmoji != 0 ? -compareEmoji : -compareNames;
+            }
         }
     });
 
     // Append sorted rows back to the table body
     rows.forEach(row => tableBody.appendChild(row));
+}
+
+function changeOptions() {
+    const method = document.getElementById("sortingDropdown").value;
+    const direction = document.getElementById("sort-direction");
+    const asc = document.getElementById("asc");
+    const desc = document.getElementById("desc");
+
+    direction.style.display = "none";
+
+    if (method == "0") {
+        // 3-0 or 0-3
+        direction.style.display = "block";
+        document.querySelector("label[for='asc']").textContent = "3 - 0";
+        document.querySelector("label[for='desc']").textContent = "0 - 3";
+    } else if (method == "1") {
+        // A-Z or Z-A
+        direction.style.display = "block";
+        document.querySelector("label[for='asc']").textContent = "A - Z";
+        document.querySelector("label[for='desc']").textContent = "Z - A";
+    } else if (method == "2" || method == "3" || method == "4") {
+        // 1-0 or 0-1
+        direction.style.display = "block";
+        document.querySelector("label[for='asc']").textContent = "1 - 0";
+        document.querySelector("label[for='desc']").textContent = "0 - 1";
+    } else {
+        // high or low
+        direction.style.display = "block";
+        document.querySelector("label[for='asc']").textContent = "High";
+        document.querySelector("label[for='desc']").textContent = "Low";
+    }
+
+    if (asc.checked) {
+        asc.checked=true;
+    } else if (desc.checked) {
+        desc.checked=true;
+    } else {
+        asc.checked=true;
+    }
+
+    sortResults();
 }
 
 loadResults();

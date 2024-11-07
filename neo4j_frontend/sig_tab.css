@@ -88,7 +88,7 @@ body {
 .card-body {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
 }
 
 /* Filter input section */
@@ -96,15 +96,31 @@ body {
     border: 1px solid #CED4DA;
     border-radius: 3rem;
     padding: 8px;
-    flex: 1;
-    max-width: 150px;
+    width: 274px;
 }
 
 .sort-select {
     border: 1px solid #CED4DA;
     border-radius: 3rem;
     padding: 8px;
-    max-width: 120px;
+    width: 141px;
+    margin-top: -8px;
+}
+
+.sort-direction {
+    display: none;
+    gap: 10px;
+    margin-top: -8px;
+}
+
+.sort-direction input[type="radio"] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.sort-direction label {
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 .filter::placeholder,

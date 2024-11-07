@@ -35,21 +35,30 @@
     <div class="container my-5 main-content">
         <div class="left-panel">
             <div class="card shadow-sm mb-4">
+                <!-- Filter Entry -->
                 <div class="card-body">
-                    <!-- Filter Entry -->
                     <input type="text" class="filter" placeholder="Type to filter results..." oninput="filterResults()" id="filter">
-                    
-                    <!-- Sorting Options -->
-                    <select class="sort-select" id="sortingDropdown" onchange="sortResults()">
+                </div>
+
+                <!-- Sorting Options -->
+                <div class="card-body">
+                    <select class="sort-select" id="sortingDropdown" onchange="changeOptions()">
                         <option value="" disabled selected>Sort by...</option>
-                        <option value="0">Name</option>
-                        <option value="1">Emoji</option>
+                        <option value="0">Metabolite Emoji</option>
+                        <option value="1">Metabolite Name</option>
                         <option value="2">T-test</option>
                         <option value="3">Wilcoxon</option>
                         <option value="4">Permutation</option>
                         <option value="5">CVG Samples</option>
                         <option value="6">CVH Samples</option>
                     </select>
+                    
+                    <div class="sort-direction" id="sort-direction">
+                        <input type="radio" id="asc" name="direction" value="asc" onchange="sortResults()">
+                        <label for="asc"></label>
+                        <input type="radio" id="desc" name="direction" value="desc" onchange="sortResults()">
+                        <label for="desc"></label>
+                    </div>
                 </div>
             </div>
 
