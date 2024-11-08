@@ -99,13 +99,24 @@ const submitQuery = () => {
     searchedMetabolite = numbersStr[0];
 
     // Generate Cypher Query
-    let start = `match (m0 {name: '${searchedMetabolite}'})`;
+    let start = `match (m0)`;
+    let middle = ` where toLower(m0.name) = toLower('${searchedMetabolite}')`;
     let end = ` return m0`;
+    for (let i = 0; i < neighbors; i++) {
+        start += `-[r${i+1}:LINKED]-(m${i+1})`;
+        end += `,r${i+1},m${i+1}`;
+    }
+    const cypherString = start + middle + end + ` limit 300`;
+    
+    /*let start = `MATCH (m0 {name: '${searchedMetabolite}'})`;
+    let end = ` RETURN m0`;
     for (let i = 0; i < neighbors; i++) {
         start += `-[r${i+1}:LINKED]-(m${i+1})`
         end += `,r${i+1},m${i+1}` 
     }
-    const cypherString = start+end+` limit 300`;
+    const cypherString = start+end+` limit 300`;*/
+
+//=~ '(?i)AND.*'
 
     // make POST request with auth headers
     fetch(neo4j_http_url, {
@@ -300,7 +311,7 @@ const updateGraph = (nodes, links) => {
             context.arc(d.x, d.y, circleSize, 0, 2 * Math.PI);
 
             // fill color
-            if (d.properties.name == searchedMetabolite) {
+            if (d.properties.name.toLowerCase() == searchedMetabolite.toLowerCase()) {
                 context.fillStyle = '#A865B5';
             } else if (d.labels && d.labels.includes('METABOLITE')) {
                 context.fillStyle = '#4EA8E5';
@@ -367,7 +378,7 @@ const updateGraph = (nodes, links) => {
                 const pathwayId = getPathwayId(nodeName);
     
                 if (compoundId) {
-                    openLinksPage(true, compoundId,, nodeName);
+                    openLinksPage(true, compoundId, nodeName);
                 } else if (pathwayId) {
                     openLinksPage(false, pathwayId, nodeName);
                 } else {

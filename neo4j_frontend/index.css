@@ -132,10 +132,7 @@ body {
     background-color: #f9f9f9;
 }
 
-.legend-title {
-    padding-bottom: 10px;
-}
-
+.legend-title,
 .legend-item {
     padding-bottom: 10px;
 }
