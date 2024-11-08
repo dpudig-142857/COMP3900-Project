@@ -62,11 +62,13 @@ const submitQuery = () => {
     // Construct the Cypher query with the parameterized metabolite name
     
     
-    numbersStr = document.querySelector('#queryContainer').value;
+    metaboliteName = document.querySelector('#queryContainer').value;
+    console.log("Name:", metaboliteName);
     neighbors = document.querySelector('#neighborsDropdown').value;
     
-    numbersStr = numbersStr.split("/");
-    const metaboliteName = numbersStr[0]
+    // numbersStr = numbersStr.split("/");
+    // const metaboliteName = numbersStr[0]
+    // console.log("MET Name:", metaboliteName);
 
     let start = `match (m0 {name: '${metaboliteName}'})`;
     let end = ` return m0`;
