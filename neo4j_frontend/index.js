@@ -94,9 +94,8 @@ const submitQuery = () => {
     let linkItemMap = {}
 
     // Contents of the query text field
-    numbersStr = document.querySelector('#queryContainer').value.split("/");
+    searchedMetabolite = document.querySelector('#queryContainer').value;
     neighbors = document.querySelector('#neighborsDropdown').value;
-    searchedMetabolite = numbersStr[0];
 
     // Generate Cypher Query
     let start = `match (m0)`;
@@ -206,10 +205,7 @@ const updateGraph = (nodes, links) => {
         .distance(50)
         .strength(0.1)
         .links(links)
-        .id((d) => {
-            return d.id;
-        });
-
+        .id(d => d.id);
     
     // This defines a new D3 Force Simulation which controls the physical behavior of how nodes and links interact.
     // https://github.com/d3/d3-force#simulation
@@ -217,6 +213,7 @@ const updateGraph = (nodes, links) => {
     let simulation = new d3.forceSimulation()
         .force('chargeForce', d3.forceManyBody().strength())
         .force('collideForce', d3.forceCollide(circleSize * 3))
+        .force("center", d3.forceCenter(width / 2, height / 2))
 
     // Here, the simulation is instructed to use the nodes returned from the query results and to render links using the force defined above
     simulation
