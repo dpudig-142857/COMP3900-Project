@@ -106,16 +106,6 @@ const submitQuery = () => {
         end += `,r${i+1},m${i+1}`;
     }
     const cypherString = start + middle + end + ` limit 300`;
-    
-    /*let start = `MATCH (m0 {name: '${searchedMetabolite}'})`;
-    let end = ` RETURN m0`;
-    for (let i = 0; i < neighbors; i++) {
-        start += `-[r${i+1}:LINKED]-(m${i+1})`
-        end += `,r${i+1},m${i+1}` 
-    }
-    const cypherString = start+end+` limit 300`;*/
-
-//=~ '(?i)AND.*'
 
     // make POST request with auth headers
     fetch(neo4j_http_url, {
@@ -184,20 +174,6 @@ const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    /*
-    const centerX = width / 2;
-    const centerY = height / 2;
-
-    // Centering the nodes on the canvas
-    nodes.forEach((node, index) => {
-
-        // spreading the nodes apart
-        const angle = (index / nodes.length) * 2 * Math.PI;
-        node.x = centerX + (Math.cos(angle) * 100);
-        node.y = centerY + (Math.sin(angle) * 100);
-    });
-    */
-
     let transform = d3.zoomIdentity;
 
     // This object sets the force between links and instructs the below simulation to use the links provided from query results, https://github.com/d3/d3-force#links
@@ -206,7 +182,7 @@ const updateGraph = (nodes, links) => {
         .strength(0.1)
         .links(links)
         .id(d => d.id);
-    
+
     // This defines a new D3 Force Simulation which controls the physical behavior of how nodes and links interact.
     // https://github.com/d3/d3-force#simulation
     

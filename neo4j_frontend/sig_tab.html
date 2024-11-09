@@ -62,13 +62,15 @@
                 <div class="card-body">
                     <select class="sort-select" id="sortingDropdown" onchange="changeOptions()">
                         <option value="" disabled selected>Sort by...</option>
-                        <option value="0">Metabolite Emoji</option>
                         <option value="1">Metabolite Name</option>
-                        <option value="2">T-test</option>
-                        <option value="3">Wilcoxon</option>
-                        <option value="4">Permutation</option>
-                        <option value="5">CVG Samples</option>
-                        <option value="6">CVH Samples</option>
+                        <option value="2">Fold Change</option>
+                        <option value="3">log<sub>2</sub>(Fold Change)</option>
+                        <option value="4">P-Value</option>
+                        <option value="5">CVG Count</option>
+                        <option value="6">CVH Count</option>
+                        <option value="7">Status</option>
+                        <option value="8">Regulation</option>
+                        <option value="9">Source</option>
                     </select>
                     
                     <div class="sort-direction" id="sort-direction">
@@ -104,19 +106,15 @@
                 <table class="resultsTable" id="resultsTable">
                     <thead>
                         <tr>
-                            <th class="metabolites" rowspan="3">Metabolite</th>
-                            <th colspan="3">p-values</th>
-                            <th class="cvg" rowspan="2">CVG Samples</th>
-                            <th class="cvh" rowspan="2">CVH Samples</th>
-                            <th colspan="3">Significance</th>
-                        </tr>
-                        <tr>
-                            <th>T-test</th>
-                            <th>Wilcoxon</th>
-                            <th>Permutation</th>
-                            <th>T-test</th>
-                            <th>Wilcoxon</th>
-                            <th>Permutation</th>
+                            <th class="metabolites">Metabolite</th>
+                            <th class="fold">Fold Change</th>
+                            <th class="log">log<sub>2</sub>(Fold Change)</th>
+                            <th class="pvalue">P-Value</th>
+                            <th class="cvg">CVG Count</th>
+                            <th class="cvh">CVH Count</th>
+                            <th class="status">Status</th>
+                            <th class="regulation">Regulation</th>
+                            <th class="src">Source</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
