@@ -95,6 +95,11 @@ body {
     border: 1px solid #007BFF;
 }
 
+.compoundTitle {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 /* Name of the compound */
 #compoundName {
     font-size: 18px;

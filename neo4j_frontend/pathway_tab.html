@@ -51,32 +51,18 @@
     <!-- Pathway Information and Links -->
     <div class="main-content my-5">
         <div class="container main-box">
+            <h2 class="pathwayTitle" id="nameTitle">Name:</h2>
             <p id="pathwayName"></p>
+            <h2 class="pathwayTitle" id="idTitle">ID:</h2>
             <p id="pathwayId"></p>
+            <h2 class="pathwayTitle" id="linksTitle">Links:</h2>
             <ul class="links">
-                <li class="link"><a id="keggLink" href="#" target="_blank"></a></li>
+                <li class="link"><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
             </ul>
-            <p id="errorMessage" style="display: none;">Pathway link not found for this pathway.</p>
         </div>
     </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const pathwayId = urlParams.get('pathwayId');
-        const pathwayName = urlParams.get('pathwayName');
-
-        if (pathwayName && pathwayId) {
-            document.title = `Pathway: ${pathwayName}`;
-            document.getElementById('pathwayName').innerText = `${pathwayName}`;
-            document.getElementById('pathwayId').innerText = `${pathwayId}`;
-            
-            const keggUrl = `https://www.genome.jp/pathway/map${pathwayId}`;
-            document.getElementById('keggLink').href = keggUrl;
-            document.getElementById('keggLink').innerText = "View on KEGG";
-        } else {
-            document.getElementById('pathwayName').innerText = "Pathway ID not provided.";
-            document.getElementById('errorMessage').style.display = 'block';
-        }
-    </script>
+    <!-- Our Pathway_tab.js code -->
+    <script type="text/javascript" src="pathway_tab.js"></script>
 </body>
 </html>

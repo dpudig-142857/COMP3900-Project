@@ -95,6 +95,11 @@ body {
     border: 1px solid #007BFF;
 }
 
+.pathwayTitle {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 /* Name of the pathway */
 #pathwayName {
     font-size: 18px;

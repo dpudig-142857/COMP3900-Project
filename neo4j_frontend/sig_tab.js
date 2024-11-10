@@ -1,4 +1,4 @@
-// Order of priority for status
+// Order of priority for status and regulation
 const statusPriority = {
     "Sufficient Data": 3,
     "Constant Data": 2,

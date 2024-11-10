@@ -51,8 +51,11 @@
     <!-- Compound Information and Links -->
     <div class="main-content my-5">
         <div class="container main-box">
+            <h2 class="compoundTitle" id="nameTitle">Name:</h2>
             <p id="compoundName"></p>
+            <h2 class="compoundTitle" id="idTitle">ID:</h2>
             <p id="compoundId"></p>
+            <h2 class="compoundTitle" id="linksTitle">Links:</h2>
             <ul class="links">
                 <li class="link"><a id="keggLink" href="#" target="_blank">View on KEGG</a></li>
                 <li class="link"><a id="pubchemLink" href="#" target="_blank">View on PubChem</a></li>
@@ -60,23 +63,7 @@
         </div>
     </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const compoundId = urlParams.get('compoundId');
-        const compoundName = urlParams.get('compoundName');
-
-        if (compoundId && compoundName) {
-            document.title = `Compound: ${compoundName}`;
-            document.getElementById('compoundName').innerText = `${compoundName}`;
-            document.getElementById('compoundId').innerText = `${compoundId}`;
-            
-            const keggUrl = `https://www.genome.jp/dbget-bin/www_bget?cpd:${compoundId}`;
-            const pubchemUrl = `https://pubchem.ncbi.nlm.nih.gov/compound/${compoundId}`;
-            document.getElementById('keggLink').href = keggUrl;
-            document.getElementById('pubchemLink').href = pubchemUrl;
-        } else {
-            document.getElementById('compoundId').innerText = "Compound ID not provided.";
-        }
-    </script>
+    <!-- Our Compound_tab.js code -->
+    <script type="text/javascript" src="compound_tab.js"></script>
 </body>
 </html>

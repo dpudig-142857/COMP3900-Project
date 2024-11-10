@@ -8,11 +8,11 @@ const circleSize = 30
 const arrowHeight = 5
 const arrowWidth = 5
 
-var searchedMetabolite = ""
+let searchedMetabolite = ""
 
-// Fetch all of the data from neo4j
+// Fetch all of the data from the json files
 let compoundsData = [];
-let pathwaysData = {};
+let pathwaysData = [];
 fetch('compounds.json')
     .then(response => response.json())
     .then(data => {
@@ -55,8 +55,9 @@ function getCompoundId(compoundName) {
 //      - null
 //
 function getPathwayId(pathwayName) {
-    const pathwayId = pathwaysData[pathwayName];
-    return pathwayId || null;
+    const name = pathwayName.split(";");
+    const pathway = pathwaysData.find(p => p.pathway_name === name[0]);
+    return pathway ? pathway.pathway_id : null;
 }
 
 // openLinksPage
@@ -72,11 +73,11 @@ function getPathwayId(pathwayName) {
 //
 function openLinksPage(isCompound, id, name) {
     if (isCompound) {
-        const url = `compound_tab.html?compoundId=${id}&compoundName=${encodeURIComponent(name)}`;
+        const url = `compound_tab.html?compoundId=${id}`;
         console.log(`Opening compound page: ${url}`);
         window.open(url, "_blank");
     } else {
-        const url = `pathway_tab.html?pathwayId=${id}&pathwayName=${encodeURIComponent(name)}`;
+        const url = `pathway_tab.html?pathwayId=${id}`;
         console.log(`Opening pathway page: ${url}`);
         window.open(url, "_blank");
     }
@@ -349,6 +350,7 @@ const updateGraph = (nodes, links) => {
     
                 const compoundId = getCompoundId(nodeName);
                 const pathwayId = getPathwayId(nodeName);
+                console.log("Compound = " + compoundId + "\nPathway = " + pathwayId);
     
                 if (compoundId) {
                     openLinksPage(true, compoundId, nodeName);
