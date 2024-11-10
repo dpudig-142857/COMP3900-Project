@@ -49,9 +49,7 @@ def modify_table():
         except sqlite3.OperationalError as e:
             print(f"Error: {e}")
 
-
 def main():
-    
     with sqlite3.connect('compounds.db') as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT compound_id, id, compound_name FROM compounds")
@@ -71,6 +69,7 @@ def main():
                 print (compound_name+" "+pathways)
             else:
                 print(f"No data found for compound {compound_name}")
+
 
 
 if __name__ == "__main__":
