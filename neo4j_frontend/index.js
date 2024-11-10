@@ -40,7 +40,8 @@ fetch('pathways.json')
 //      - null
 //
 function getCompoundId(compoundName) {
-    const compound = compoundsData.find(c => c.compound_name === compoundName);
+    const compound = compoundsData.find(c => c.compound_name == compoundName);
+    console.log(compound);
     return compound ? compound.compound_id : null;
 }
 

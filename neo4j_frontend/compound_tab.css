@@ -84,15 +84,24 @@ body {
 }
 
 /* Box in the middle */
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    padding: 0 225px 0 225px;
+}
+
 .main-box {
     background-color: #f5f5f5;
     padding: 30px;
-    width: 80%;
-    max-width: 500px;
+    width: 300px;
+    height: max-content;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
     border: 1px solid #007BFF;
+    word-wrap: break-word;
 }
 
 .compoundTitle {
@@ -101,15 +110,7 @@ body {
 }
 
 /* Name of the compound */
-#compoundName {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #555555;
-}
-
-/* ID of the compound */
-#compoundId {
+.compoundText {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 15px;

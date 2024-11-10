@@ -9,13 +9,23 @@ async function loadInfo(compoundId) {
             .sort((a, b) => {
                 return a.localeCompare(b);
             });
-        
+
+        const formula = compounds
+            .filter(c => c.compound_id == compoundId)
+            .map(c => c.formula);
+
+        const canonicalSmiles = compounds
+            .filter(c => c.compound_id == compoundId)
+            .map(c => c.canonical_smiles);
+
         document.getElementById('compoundId').innerText = `${compoundId}`;
         
         if (names.length > 0) {
             document.title = `Compound: ${names[0]}`;
             document.getElementById('nameTitle').innerText = names.length == 1 ? "Name:" : "Names:";
             document.getElementById('compoundName').innerText = `${names.join("\n")}`;
+            document.getElementById('compoundFormula').innerText = `${formula[0]}`;
+            document.getElementById('compoundSmiles').innerText = `${canonicalSmiles[0]}`;
         } else {
             document.getElementById('compoundName').innerText = `Compound not found`;
         }
