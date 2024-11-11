@@ -58,6 +58,12 @@
                     <input type="text" class="filter" placeholder="Type to filter results..." oninput="filterResults()" id="filter">
                 </div>
 
+                <!-- Filter by P-Value -->
+                <div class="card-body">
+                    <input type="number" step="0.01" id="pValueInput" placeholder="Enter p-value threshold">
+                    <button onclick="filterByPValue()" class="btn btn-primary mt-2">Filter</button>
+                </div>
+
                 <!-- Sorting Options -->
                 <div class="card-body">
                     <select class="sort-select" id="sortingDropdown" onchange="changeOptions()">
