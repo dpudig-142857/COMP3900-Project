@@ -85,16 +85,16 @@
             <!-- Legend -->
             <div class="legend-section mb-4">
                 <h3 class="text-muted">Legend</h3>
-                <p>Only metabolites with sufficient data for statistical testing are displayed.</p>
-                <p><strong>p-values:</strong> The p-values for each statistical test used (T-test, Wilcoxon Rank-Sum Test, Permutation Test).</p>
-                <p><strong>CVG Samples:</strong> Number of samples in the CVG group.</p>
-                <p><strong>CVH Samples:</strong> Number of samples in the CVH group.</p>
-                <p><strong>Significance:</strong> Indicates whether the test was significant for each statistical test.</p>
-                <p><strong>Metabolite Emoji Annotations:</strong> Each metabolite is annotated with an emoji to show the number of significant tests:
+                <p><strong>Fold Change:</strong> Represents the change in metabolite abundance between the Glaucoma (CVG) and Healthy (Control, CVH) groups, with <em>log<sub>2</sub>Fold Change</em> values used to indicate upregulation or downregulation.</p>
+                <p><strong>p-values:</strong> The p-values for each metabolite based on the T-test, indicating statistical significance.</p>
+                <p><strong>CVG Samples:</strong> Number of samples in the Glaucoma (CVG) group.</p>
+                <p><strong>CVH Samples:</strong> Number of samples in the Healthy (CVH/Control) group.</p>
+                <p><strong>Status:</strong> Indicates whether there is sufficient data for significance testing.</p>
+                <p><strong>Significance:</strong> Shows if the metabolite is statistically significant based on the T-test.</p>
+                <p><strong>Regulation Indicators:</strong> Shows the regulation direction of metabolites in the Glaucoma group (CVG) compared to the Control (CVH) group:
                     <ul>
-                        <li><span style="font-size: 1.2em;">🟢</span> - Significant in 3 tests</li>
-                        <li><span style="font-size: 1.2em;">🟡</span> - Significant in 2 tests</li>
-                        <li><span style="font-size: 1.2em;">🟠</span> - Significant in 1 test</li>
+                        <li><span style="color: green;">↑</span> - Upregulated in the Glaucoma (CVG) group</li>
+                        <li><span style="color: red;">↓</span> - Downregulated in the Glaucoma (CVG) group</li>
                     </ul>
                 </p>
             </div>
@@ -108,7 +108,7 @@
                         <tr>
                             <th class="metabolites">Metabolite</th>
                             <th class="fold">Fold Change</th>
-                            <th class="log">log<sub>2</sub>(Fold Change)</th>
+                            <th class="log">log<sub>2</sub>Fold Change</th>
                             <th class="pvalue">P-Value</th>
                             <th class="cvg">CVG Count</th>
                             <th class="cvh">CVH Count</th>
