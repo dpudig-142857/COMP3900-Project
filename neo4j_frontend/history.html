@@ -63,6 +63,43 @@
     </div>
 
     <script>
+        function createHistory(link, entry) {
+            console.log("single = " + entry.single + "\ncompound = " + entry.compound + "\none = " + entry.metabolite + "\ntwo = " + entry.metabolite2 + "\nneigh = " + entry.neighbors);
+            const metabolite = encodeURIComponent(entry.metabolite);
+            const neighbors = encodeURIComponent(entry.neighbors);
+            const metabolite2 = encodeURIComponent(entry.metabolite2);
+            if (entry.single) {
+                if (entry.compound) {
+                    link.href = `index.html?metabolite=${metabolite}&neighbors=${neighbors}`;
+                    link.innerHTML = `
+                        <span class="history-info" id="history_one">Metabolite: ${entry.metabolite}</span>
+                        <span class="history-separator">|</span>
+                        <span class="history-info" id="history_two">Neighbors: ${entry.neighbors}</span>
+                        <span class="history-separator">|</span>
+                        <span class="history-info"">Date: ${entry.timestamp}</span>
+                    `;
+                } else {
+                    link.href = `index.html?pathway=${metabolite}&neighbors=${neighbors}`;
+                    link.innerHTML = `
+                        <span class="history-info" id="history_one">Pathway: ${entry.metabolite}</span>
+                        <span class="history-separator">|</span>
+                        <span class="history-info" id="history_two">Neighbors: ${entry.neighbors}</span>
+                        <span class="history-separator">|</span>
+                        <span class="history-info"">Date: ${entry.timestamp}</span>
+                    `;
+                }
+            } else {
+                link.href = `index.html?metaboliteOne=${metabolite}&metaboliteTwo=${metabolite2}`;
+                link.innerHTML = `
+                    <span class="history-info" id="history_one">Metabolite 1: ${entry.metabolite}</span>
+                    <span class="history-separator">|</span>
+                    <span class="history-info" id="history_two">Metabolite 2: ${entry.metabolite2}</span>
+                    <span class="history-separator">|</span>
+                    <span class="history-info"">Date: ${entry.timestamp}</span>
+                `;
+            }
+        }
+        
         /* Show history info */
         document.addEventListener('DOMContentLoaded', () => {
             const historyList = document.getElementById('historyList');
@@ -79,14 +116,8 @@
 
                     // Create clickable box for each history item
                     const link = document.createElement('a');
-                    link.href = `index.html?metabolite=${encodeURIComponent(entry.metabolite)}&neighbors=${encodeURIComponent(entry.neighbors)}`;
-                    link.innerHTML = `
-                        <span class="history-info">Metabolite: ${entry.metabolite}</span>
-                        <span class="history-separator">|</span>
-                        <span class="history-info">Neighbors: ${entry.neighbors}</span>
-                        <span class="history-separator">|</span>
-                        <span class="history-info">Date: ${entry.timestamp}</span>
-                    `;
+                    createHistory(link, entry);
+                    
                     link.classList.add('history-box');
                     
                     // Append the links

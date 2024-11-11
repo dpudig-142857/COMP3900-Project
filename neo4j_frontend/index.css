@@ -104,6 +104,14 @@ body {
     border: 1px solid #007BFF; 
 }
 
+.one {
+    margin-right: 5px;
+}
+
+#twoMetabolites {
+    display: none;
+}
+
 /* Query answer section and select neighbour section */
 .form-control,
 .form-select {

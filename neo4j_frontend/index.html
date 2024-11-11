@@ -68,6 +68,17 @@
             <!-- Query Entry -->
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
+                    <div class="queryVersion" id="queryVersion">
+                        <input type="radio" id="one" name="query" value="one" onchange="changeQueryType()" checked>
+                        <label for="one" class="one">One Metabolite or Pathway</label>
+                        <input type="radio" id="two" name="query" value="two" onchange="changeQueryType()">
+                        <label for="two">Two Metabolites</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4" id="oneMetabolite">
+                <div class="card-body">
                     <input type="text" class="form-control mb-3" placeholder="Enter your Metabolite or Pathway..." id="queryContainer">
                     
                     <select class="form-select mb-3" id="neighborsDropdown">
@@ -83,7 +94,7 @@
                 </div>
             </div>
 
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow-sm mb-4" id="twoMetabolites">
                 <div class="card-body">
                     <input type="text" class="form-control mb-3" placeholder="Enter your first Metabolite" id="firstMetabolite">
                     <input type="text" class="form-control mb-3" placeholder="Enter your second Metabolite" id="secondMetabolite">

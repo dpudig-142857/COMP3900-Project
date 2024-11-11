@@ -1,5 +1,3 @@
-const neo4j = require('neo4j-driver');
-
 // Neo4j HTTP endpoint for Cypher transaction API
 const neo4j_http_url = "http://localhost:7474/db/neo4j/tx"
 const neo4jUsername = "neo4j"
@@ -10,7 +8,10 @@ const circleSize = 30
 const arrowHeight = 5
 const arrowWidth = 5
 
-let searchedMetabolite = ""
+let metaboliteOne = ""
+let metaboliteTwo = ""
+
+let single = true;
 
 // Fetch all of the data from the json files
 let compoundsData = [];
@@ -33,6 +34,7 @@ fetch('pathways.json')
 
 // getCompoundId
 //      - If the compound exists, gets the compound ID from the name
+//      - Gets all of the compounds with the same id and changes saved names to name on node
 //
 // Parameters:
 //      - compoundName (string) - the name of the compound that may or may not exist
@@ -42,9 +44,27 @@ fetch('pathways.json')
 //      - null
 //
 function getCompoundId(compoundName) {
-    const compound = compoundsData.find(c => c.compound_name == compoundName);
-    console.log(compound);
+    const compound = compoundsData.find(c => c.compound_name.toLowerCase() == compoundName.toLowerCase());
     return compound ? compound.compound_id : null;
+}
+
+function changeName(compoundID, first) {
+    const compounds = compoundsData
+        .filter(c => c.compound_id == compoundID)
+        .sort((a, b) => {
+            const nameA = a.compound_name;
+            const nameB = b.compound_name;
+            const compare = nameA.length - nameB.length;
+            return compare != 0 ? compare : nameA.localeCompare(nameB);
+        });
+
+    if (compounds) {
+        if (first) {
+            metaboliteOne = compounds[0].compound_name;
+        } else {
+            metaboliteTwo = compounds[0].compound_name;
+        }
+    }
 }
 
 // getPathwayId
@@ -59,7 +79,7 @@ function getCompoundId(compoundName) {
 //
 function getPathwayId(pathwayName) {
     const name = pathwayName.split(";");
-    const pathway = pathwaysData.find(p => p.pathway_name === name[0]);
+    const pathway = pathwaysData.find(p => p.pathway_name.toLowerCase() === name[0].toLowerCase());
     return pathway ? pathway.pathway_id : null;
 }
 
@@ -75,6 +95,7 @@ function getPathwayId(pathwayName) {
 //      - nothing
 //
 function openLinksPage(isCompound, id, name) {
+    console.log("isCompound = " + isCompound + "\nid = " + id + "\nname = " + name);
     if (isCompound) {
         const url = `compound_tab.html?compoundId=${id}`;
         console.log(`Opening compound page: ${url}`);
@@ -86,6 +107,16 @@ function openLinksPage(isCompound, id, name) {
     }
 }
 
+function changeQueryType() {
+    if (document.getElementById('one').checked) {
+        document.getElementById('oneMetabolite').style.display = 'block';
+        document.getElementById('twoMetabolites').style.display = 'none';
+    } else if (document.getElementById('two').checked) {
+        document.getElementById('oneMetabolite').style.display = 'none';
+        document.getElementById('twoMetabolites').style.display = 'block';
+    }
+}
+
 // submitQuery
 //      - Submits Query to Neo4j based on given metabolite and number of neighbours
 //
@@ -93,27 +124,32 @@ function openLinksPage(isCompound, id, name) {
 //      - nothing
 // 
 const submitQuery = () => {
-    // Create new, empty objects to hold the nodes and relationships returned by the query results
-    let nodeItemMap = {}
-    let linkItemMap = {}
-
     // Contents of the query text field
-    searchedMetabolite = document.querySelector('#queryContainer').value;
+    metaboliteOne = document.querySelector('#queryContainer').value
+    const searched = metaboliteOne;
+    metaboliteTwo = "";
     neighbors = document.querySelector('#neighborsDropdown').value;
+
+    const compound = getCompoundId(metaboliteOne);
+    const pathway = getPathwayId(metaboliteOne);
+    if (compound) changeName(compound, true);
 
     // Get history if no history make an array
     const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
 
     // Check to see if the query already exists
     const existingQuery = queryHistory.find(q => 
-        q.neighbors == neighbors && q.metabolite.toLowerCase() == searchedMetabolite.toLowerCase()
+        q.neighbors == neighbors && q.metabolite.toLowerCase() == searched.toLowerCase()
     );
 
     if (existingQuery) {
         existingQuery.timestamp = new Date().toLocaleString();
     } else {
         queryHistory.push({
-            metabolite: searchedMetabolite,
+            single: true,
+            compound: compound != null,
+            metabolite: searched,
+            metabolite2: metaboliteTwo,
             neighbors: neighbors,
             timestamp: new Date().toLocaleString()
         });
@@ -122,16 +158,99 @@ const submitQuery = () => {
     //save into local storage
     localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
 
-    // Generate Cypher Query
-    let start = `MATCH (m0)`;
-    let middle = ` WHERE toLower(m0.name) = toLower('${searchedMetabolite}')`;
+    let start = compound ? `MATCH (m0 {kegg_id: '${compound}'})` :
+        pathway ? `MATCH (m0 {mapp_id: 'map${pathway}'})` : '';
     let end = ` RETURN m0`;
     for (let i = 0; i < neighbors; i++) {
         start += `-[r${i+1}:LINKED]-(m${i+1})`;
         end += `,r${i+1},m${i+1}`;
     }
-    const cypherString = start + middle + end + ` LIMIT 300`;
+    generateGraph(start + end + ` LIMIT 300`);
+}
 
+window.addEventListener('DOMContentLoaded', () => {
+
+    // Get the metab name and neigbours in the URL
+    const params = new URLSearchParams(window.location.search);
+    const metabolite = params.get('metabolite');
+    const neighbors = params.get('neighbors');
+
+    // If metab name and neighbors are in the URL, set them
+    if (metabolite && neighbors) {
+        document.getElementById('queryContainer').value = metabolite;
+        document.getElementById('neighborsDropdown').value = neighbors;
+    } else if (neighbors) {
+        const pathway = params.get('pathway');
+        document.getElementById('queryContainer').value = pathway;
+        document.getElementById('neighborsDropdown').value = neighbors;
+    } else {
+        const metabolite1 = params.get('metaboliteOne');
+        const metabolite2 = params.get('metaboliteTwo');
+        document.getElementById('one').checked = false;
+        document.getElementById('two').checked = true;
+        changeQueryType();
+        document.getElementById('firstMetabolite').value = metabolite1;
+        document.getElementById('secondMetabolite').value = metabolite2;
+    }
+});
+
+
+// 
+async function findPath() {
+    single = false;
+    metaboliteOne = document.querySelector('#firstMetabolite').value;
+    metaboliteTwo = document.querySelector('#secondMetabolite').value;
+
+    const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
+    const existingQuery = queryHistory.find(q => 
+        q.metabolite.toLowerCase() == metaboliteOne.toLowerCase() &&
+        q.metabolite2.toLowerCase() == metaboliteTwo.toLowerCase()
+    );
+
+    if (existingQuery) {
+        existingQuery.timestamp = new Date().toLocaleString();
+    } else {
+        console.log("history = " + queryHistory);
+        queryHistory.push({
+            single: false,
+            compound: true,
+            metabolite: metaboliteOne,
+            metabolite2: metaboliteTwo,
+            neighbors: "",
+            timestamp: new Date().toLocaleString()
+        });
+        console.log("history = " + queryHistory);
+    }
+    
+    //save into local storage
+    localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
+
+    const kegg1 = getCompoundId(metaboliteOne);
+    const kegg2 = getCompoundId(metaboliteTwo);
+    if (kegg1 && kegg2) {
+        changeName(kegg1, true);
+        changeName(kegg2, false);
+        generateGraph(
+            `MATCH (m1:METABOLITE {kegg_id: '${kegg1}'}), (m2:METABOLITE {kegg_id: '${kegg2}'})
+            MATCH path = shortestPath((m1)-[*]-(m2))
+            RETURN path`
+        );
+    }
+}
+
+// generateGraph
+//      - Generates the nodes and links from the graph given from the return of the Cypher Query
+//
+// Parameters:
+//      - cypherString (string) - cypher query that the graph will generate
+//
+// Returns:
+//      - nothing
+//
+function generateGraph(cypherString) {
+    let nodeItemMap = {}
+    let linkItemMap = {}
+    
     // make POST request with auth headers
     fetch(neo4j_http_url, {
         method: 'POST',
@@ -184,91 +303,6 @@ const submitQuery = () => {
             updateGraph(Object.values(nodeItemMap), Object.values(linkItemMap));
         });
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-
-    // Get the metab name and neigbours in the URL
-    const params = new URLSearchParams(window.location.search);
-    const metabolite = params.get('metabolite');
-    const neighbors = params.get('neighbors');
-
-    // If metab name and neighbors are in the URL, set them.
-    if (metabolite) {
-        document.getElementById('queryContainer').value = metabolite;
-    }
-    if (neighbors) {
-        document.getElementById('neighborsDropdown').value = neighbors;
-    }
-
-    // Automatically run the query if both exist
-    if (metabolite && neighbors) {
-        submitQuery();
-    }
-});
-
-
-// 
-async function findPath() {
-    const metabolite1 = document.querySelector('#firstMetabolite').value;
-    const metabolite2 = document.querySelector('#secondMetabolite').value;
-    console.log("metabolite1 = " + metabolite1 + "\nmetabolite2 = " + metabolite2);
-    /*(async () => {
-        // URI examples: 'neo4j://localhost', 'neo4j+s://xxx.databases.neo4j.io'
-        const URI = 'bolt://localhost:7687'
-        let driver
-      
-        try {
-          driver = neo4j.driver(URI, neo4j.auth.basic(neo4jUsername, neo4jPassword))
-          const serverInfo = await driver.getServerInfo()
-          console.log('Connection established')
-          console.log(serverInfo)
-        } catch(err) {
-          console.log(`Connection error\n${err}\nCause: ${err.cause}`)
-        }
-    })();*/
-
-    const uri = 'bolt://localhost:7687';
-    const driver = neo4j.driver(uri, neo4j.auth.basic(neo4jUsername, neo4jPassword));
-    const session = driver.session();
-    
-    try {
-        // Find the shortest path between the two metabolites
-        const result = await session.run(
-            `
-            MATCH (m1:METABOLITE {name: ${metabolite1}}), (m2:METABOLITE {name: ${metabolite2}})
-            MATCH path = shortestPath((m1)-[*]-(m2))
-            RETURN path
-            `,
-            { metabolite1, metabolite2 }
-        );
-
-        if (result.records.length > 0) {
-            const path = result.records[0].get('path');
-            
-            // Check if any of the nodes in the path are labelled as 'PATHWAY'
-            const hasPathway = path.segments.some(segment => 
-                segment.start.labels.includes('PATHWAY') || segment.end.labels.includes('PATHWAY')
-            );
-
-            if (hasPathway) {
-                console.log('Path found through pathway:', path);
-                return path;
-            } else {
-                console.log('No path found through pathway.');
-                return null;
-            }
-        } else {
-            console.log('No path found between the specified metabolites.');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error finding path through pathway:', error);
-    } finally {
-        await session.close();
-    }
-}
-
-
 
 // updateGraph
 //      - Creates a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
@@ -394,7 +428,8 @@ const updateGraph = (nodes, links) => {
             context.arc(d.x, d.y, circleSize, 0, 2 * Math.PI);
 
             // fill color
-            if (d.properties.name.toLowerCase() == searchedMetabolite.toLowerCase()) {
+            if (d.properties.name.toLowerCase() == metaboliteOne.toLowerCase() || 
+                d.properties.name.toLowerCase() == metaboliteTwo.toLowerCase()) {
                 context.fillStyle = '#A865B5';
             } else if (d.labels && d.labels.includes('METABOLITE')) {
                 context.fillStyle = '#4EA8E5';
