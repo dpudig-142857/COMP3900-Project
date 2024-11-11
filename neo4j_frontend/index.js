@@ -1,3 +1,5 @@
+const neo4j = require('neo4j-driver');
+
 // Neo4j HTTP endpoint for Cypher transaction API
 const neo4j_http_url = "http://localhost:7474/db/neo4j/tx"
 const neo4jUsername = "neo4j"
@@ -121,14 +123,14 @@ const submitQuery = () => {
     localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
 
     // Generate Cypher Query
-    let start = `match (m0)`;
-    let middle = ` where toLower(m0.name) = toLower('${searchedMetabolite}')`;
-    let end = ` return m0`;
+    let start = `MATCH (m0)`;
+    let middle = ` WHERE toLower(m0.name) = toLower('${searchedMetabolite}')`;
+    let end = ` RETURN m0`;
     for (let i = 0; i < neighbors; i++) {
         start += `-[r${i+1}:LINKED]-(m${i+1})`;
         end += `,r${i+1},m${i+1}`;
     }
-    const cypherString = start + middle + end + ` limit 300`;
+    const cypherString = start + middle + end + ` LIMIT 300`;
 
     // make POST request with auth headers
     fetch(neo4j_http_url, {
@@ -190,8 +192,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const metabolite = params.get('metabolite');
     const neighbors = params.get('neighbors');
 
-    // console.log("HELLOOOO"); 
-
     // If metab name and neighbors are in the URL, set them.
     if (metabolite) {
         document.getElementById('queryContainer').value = metabolite;
@@ -205,6 +205,68 @@ window.addEventListener('DOMContentLoaded', () => {
         submitQuery();
     }
 });
+
+
+// 
+async function findPath() {
+    const metabolite1 = document.querySelector('#firstMetabolite').value;
+    const metabolite2 = document.querySelector('#secondMetabolite').value;
+    console.log("metabolite1 = " + metabolite1 + "\nmetabolite2 = " + metabolite2);
+    /*(async () => {
+        // URI examples: 'neo4j://localhost', 'neo4j+s://xxx.databases.neo4j.io'
+        const URI = 'bolt://localhost:7687'
+        let driver
+      
+        try {
+          driver = neo4j.driver(URI, neo4j.auth.basic(neo4jUsername, neo4jPassword))
+          const serverInfo = await driver.getServerInfo()
+          console.log('Connection established')
+          console.log(serverInfo)
+        } catch(err) {
+          console.log(`Connection error\n${err}\nCause: ${err.cause}`)
+        }
+    })();*/
+
+    const uri = 'bolt://localhost:7687';
+    const driver = neo4j.driver(uri, neo4j.auth.basic(neo4jUsername, neo4jPassword));
+    const session = driver.session();
+    
+    try {
+        // Find the shortest path between the two metabolites
+        const result = await session.run(
+            `
+            MATCH (m1:METABOLITE {name: ${metabolite1}}), (m2:METABOLITE {name: ${metabolite2}})
+            MATCH path = shortestPath((m1)-[*]-(m2))
+            RETURN path
+            `,
+            { metabolite1, metabolite2 }
+        );
+
+        if (result.records.length > 0) {
+            const path = result.records[0].get('path');
+            
+            // Check if any of the nodes in the path are labelled as 'PATHWAY'
+            const hasPathway = path.segments.some(segment => 
+                segment.start.labels.includes('PATHWAY') || segment.end.labels.includes('PATHWAY')
+            );
+
+            if (hasPathway) {
+                console.log('Path found through pathway:', path);
+                return path;
+            } else {
+                console.log('No path found through pathway.');
+                return null;
+            }
+        } else {
+            console.log('No path found between the specified metabolites.');
+            return null;
+        }
+    } catch (error) {
+        console.error('Error finding path through pathway:', error);
+    } finally {
+        await session.close();
+    }
+}
 
 
 
