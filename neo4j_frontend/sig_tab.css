@@ -211,20 +211,32 @@ button.btn-primary {
 .resultsTable {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.resultsTable th,
-.resultsTable td {
-    padding: 8px;
-    border: 1px solid #ddd;
+    table-layout: auto;
 }
 
 .resultsTable th {
     background-color: #f2f2f2;
     text-align: center;
+    font-weight: bold;
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+}
+
+.resultsTable td {
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
 .metabolites {
     width: 350px;
+}
+
+.fold, .log, .pvalue, .cvg, .cvh, .status, .src {
+    width: 100px;
+}
+
+.resultsTable th, .resultsTable td {
+    font-size: 1rem;
+    color: #333333;
 }
