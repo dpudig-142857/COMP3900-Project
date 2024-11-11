@@ -99,6 +99,27 @@ const submitQuery = () => {
     searchedMetabolite = document.querySelector('#queryContainer').value;
     neighbors = document.querySelector('#neighborsDropdown').value;
 
+    // Get history if no history make an array
+    const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
+
+    // Check to see if the query already exists
+    const existingQuery = queryHistory.find(q => 
+        q.neighbors == neighbors && q.metabolite.toLowerCase() == searchedMetabolite.toLowerCase()
+    );
+
+    if (existingQuery) {
+        existingQuery.timestamp = new Date().toLocaleString();
+    } else {
+        queryHistory.push({
+            metabolite: searchedMetabolite,
+            neighbors: neighbors,
+            timestamp: new Date().toLocaleString()
+        });
+    }
+    
+    //save into local storage
+    localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
+
     // Generate Cypher Query
     let start = `match (m0)`;
     let middle = ` where toLower(m0.name) = toLower('${searchedMetabolite}')`;
@@ -162,7 +183,32 @@ const submitQuery = () => {
         });
 }
 
-// openLinksPage
+window.addEventListener('DOMContentLoaded', () => {
+
+    // Get the metab name and neigbours in the URL
+    const params = new URLSearchParams(window.location.search);
+    const metabolite = params.get('metabolite');
+    const neighbors = params.get('neighbors');
+
+    // console.log("HELLOOOO"); 
+
+    // If metab name and neighbors are in the URL, set them.
+    if (metabolite) {
+        document.getElementById('queryContainer').value = metabolite;
+    }
+    if (neighbors) {
+        document.getElementById('neighborsDropdown').value = neighbors;
+    }
+
+    // Automatically run the query if both exist
+    if (metabolite && neighbors) {
+        submitQuery();
+    }
+});
+
+
+
+// updateGraph
 //      - Creates a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
 //
 // Parameters:
@@ -339,6 +385,7 @@ const updateGraph = (nodes, links) => {
 
     canvas.addEventListener('click', event => {
         const rect = canvas.getBoundingClientRect();
+        console.log("dimensions:", rect);
         const mouseX = (event.clientX - rect.left - transform.x) / transform.k;
         const mouseY = (event.clientY - rect.top - transform.y) / transform.k;
     

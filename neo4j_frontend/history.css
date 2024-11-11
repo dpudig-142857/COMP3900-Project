@@ -1,0 +1,243 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header box */
+.header {
+    background-color: #6DF1A9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo on the left */
+.header-left {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.hover-box {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%; /* Position below the image */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 235px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 1px solid #007BFF; 
+}
+
+.header-left:hover .hover-box {
+    display: block;
+}
+
+/* Title in the middle */
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-left: 100px;
+}
+
+.title {
+    padding: 1rem 1rem;
+    font-size: 3rem;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    font-family: 'Roboto';
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Back link on the right */
+.header-right-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete_history {
+    padding: 1rem 1rem;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    text-align: center;
+}
+
+.delete_history:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.delete_text {
+    margin-top: 0.75rem;
+    margin-bottom: -0.25rem;
+}
+
+.back {
+    padding: 1rem 1rem;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    text-align: center;
+}
+
+.back:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.history-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+.no-history {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #666;
+    display: none;
+}
+  
+.history-list {
+    list-style: none;
+    padding: 0;
+}
+  
+.history-list li {
+    margin-bottom: 10px;
+}
+  
+.history-box {
+    display: block;
+    background-color: #f0f8ff;
+    padding: 15px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    text-align: center;
+}
+  
+.history-box:hover {
+    background-color: #e0f0ff;
+    transform: scale(1.02);
+}
+
+.history-info {
+    margin: 0 5px;
+}
+  
+.history-separator {
+    margin: 0 20px;
+}
+
+/*.history-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+  
+.history-list {
+    list-style: none;
+    padding: 0;
+}
+  
+.history-list li {
+    margin-bottom: 10px;
+}
+  
+.history-box {
+    display: block;
+    background-color: #f0f8ff;
+    padding: 15px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    text-align: center;
+}
+  
+.history-box:hover {
+    background-color: #e0f0ff;
+    transform: scale(1.02);
+}*/
+
+/*.history-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+}
+
+.history-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.history-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.history-link:hover {
+    text-decoration: underline;
+}*/
+
+.btn-danger {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
