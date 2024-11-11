@@ -10,7 +10,7 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <!-- Link to custom CSS -->
-    <link rel="stylesheet" href="neo4j.css">
+    <link rel="stylesheet" href="index.css">
 
     <!-- D3.js Library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -19,66 +19,103 @@
     <script type="text/javascript" src="index.js"></script>
 
 </head>
-<body class="bg-light" onload="responsiveCanvasSizer()">
-    <!-- UNSW Crest -->
-    <div class="container text-center mt-4">
-        <img src="crest.jpeg" alt="Crest" class="crest-image">
-    </div>
+<body onload="responsiveCanvasSizer()">
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container d-flex align-items-center justify-content-between">
+            <!-- Logo with hovering option for group information -->
+            <div class="header-left">
+                <img src="eye.jpeg" alt="Deadline Demons Logo" class="logo">
+                <div class="hover-box">
+                    <p><strong>Project Name:</strong>
+                        <br>What is hidden in the metabolomics of the tear film of the eye
+                    </p>
+                    <p><strong>Group Name:</strong>
+                        <br>3900 T15A Deadline Demons
+                    </p>
+                    <p><strong>Group Members:</strong>
+                        <br>&emsp;- Mingsim Chong&emsp;- Michel Hannoun
+                        <br>&emsp;- Kevin Yuan&emsp;&emsp;&emsp;- Hugo Sullivan
+                        <br>&emsp;- Dan Pudig&emsp;&emsp;&emsp; - Joshua Yam
+                    </p>
+                    <p><strong>Clients:</strong>
+                        <br>&emsp;- William Alexander Donald
+                        <br>&emsp;- Nicole Carnt
+                    </p>
+                </div>
+            </div>
+
+            <!-- Title in the middle -->
+            <div class="header-center">
+                <h1 class="title">NEO4J D3 VISUALISATION</h1>
+            </div>
+
+            <!-- View Significant Metabolites and History links -->
+            <div class="header-right-container">
+                <div class="header-right clickable-section" onclick="window.location.href='sig_tab.html';">
+                    View<br>Significant<br>Metabolites
+                </div>
     
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Neo4j D3 Visualization</h1>
-        
-        <!-- Significant Metabolites Tab -->
-        <div class="mb-4 text-center">
-            <a href="sig_tab.html" class="btn btn-primary">View Significant Metabolites</a>
+                <div class="header-right clickable-section" onclick="window.location.href='history.html';">
+                    <br>History<br><br>
+                </div>
+            </div>
         </div>
-        <div class="mb-4 text-center">
-            <a href="history.html" class="btn btn-primary">View History</a>
-        </div>
-        
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-                <h5 class="card-title text-muted">Enter Your Cypher Query</h5>
-                <input type="text" class="form-control mb-3" placeholder="Metabolite name" id="queryContainer">
-                
-                <!-- Selecting the number of neigbours :) -->
-                <label for="neighborsDropdown" class="form-label">Number of Neighbors:</label>
-                <select class="form-select mb-3" id="neighborsDropdown">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
+    </header>
 
-                <button class="btn btn-primary" onclick="submitQuery()">Run Query</button>
+    <div class="container my-5 main-content">
+        <div class="left-panel">
+            <!-- Query Entry -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <input type="text" class="form-control mb-3" placeholder="Enter your Metabolite or Pathway..." id="queryContainer">
+                    
+                    <select class="form-select mb-3" id="neighborsDropdown">
+                        <option value="" disabled selected>Number of Neighbors...</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+
+                    <button class="btn btn-primary" onclick="submitQuery()">Run Query</button>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend-section mb-4">
+                <h5 class="legend-title text-muted">Graph Legend</h5>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #A865B5;"></span>
+                    <span class="legend-label">Searched (Purple)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #4EA8E5;"></span> 
+                    <span class="legend-label">Metabolite (Blue)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background-color: #6DF1A9;"></span> 
+                    <span class="legend-label">Pathway (Green)</span>
+                </div>
+            </div>
+
+            <!-- Zoom Buttons -->
+            <div class="zoom-buttons">
+                <button id="zoomInBtn">Zoom In</button>
+                <button id="zoomOutBtn">Zoom Out</button>
+            </div>
+            <div class="zoom-buttons">
+                <button id="resetZoomBtn">Reset Zoom</button>
+                <button id="saveCanvasBtn">Save Canvas</button>
             </div>
         </div>
 
-        <!--Legends-->
-        <div class="mb-4">
-            <h5 class="text-muted">Graph Legend</h5>
-            <div class="legend-item">
-                <span class="legend-color" style="background-color: #4EA8E5; border-radius: 50%;"></span> 
-                <span class="legend-label">Metabolite (Blue)</span>
+        <!-- D3 Graph Canvas -->
+        <div class="right-panel">
+            <div class="border border-3">
+                <canvas id="graphCanvas"></canvas>
             </div>
-            <div class="legend-item">
-                <span class="legend-color" style="background-color: #6df1a9; border-radius: 50%;"></span> 
-                <span class="legend-label">Pathway (Green)</span>
-            </div>
-        </div>
-
-        <!--Zoom buttons-->
-        <div class="zoom-buttons">
-            <button id="zoomInBtn">Zoom In</button>
-            <button id="zoomOutBtn">Zoom Out</button>
-            <button id="resetZoomBtn">Reset Zoom</button>
-            <button id="saveCanvasBtn">Save Canvas</button>
-        </div>
-
-        <div class="border border-3">
-            <!-- Canvas for graph visualization -->
-            <canvas id="graphCanvas" style="width: 100%; height: 600px; object-fit: contain;"></canvas>
         </div>
     </div>
 </body>

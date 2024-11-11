@@ -1,0 +1,195 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header box */
+.header {
+    background-color: #6DF1A9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo on the left */
+.header-left {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.hover-box {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%; /* Position below the image */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 235px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 1px solid #007BFF; 
+}
+
+.header-left:hover .hover-box {
+    display: block;
+}
+
+/* Title in the middle */
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    padding: 1rem 1rem;
+    font-size: 3rem;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    font-family: 'Roboto';
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Back link on the right */
+.header-right {
+    flex: 0;
+    display: inline-block;
+    padding: 1rem 1rem;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    text-align: center;
+    justify-content: flex-end;
+}
+
+.header-right:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Everything below the header */
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Left side of main content */
+.left-panel {
+    flex: 1;
+    max-width: 300px;
+}
+
+/* Query Border */
+.card {
+    border-radius: 0.5rem; 
+    border: 1px solid #007BFF;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Filter input section and sort by dropdown section */
+.filter {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+    padding: 8px;
+    width: 274px;
+}
+
+.sort-select {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+    padding: 8px;
+    width: 141px;
+    margin-top: -8px;
+}
+
+.filter::placeholder,
+.sort-select::placeholder {
+    color: #000000;
+}
+
+.filter:focus,
+.sort-select:focus {
+    border-color: #007BFF; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+    outline: none;
+}
+
+/* Sort direction buttons section */
+.sort-direction {
+    display: none;
+    gap: 10px;
+    margin-top: -8px;
+}
+
+.sort-direction input[type="radio"] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.sort-direction label {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Legend section */
+.legend-section {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+}
+
+.legend-section h3 {
+    margin-bottom: 10px;
+}
+
+.legend-section p {
+    margin: 5px 0;
+}
+
+/* Right side of main content */
+.right-panel {
+    flex: 3;
+}
+
+/* Results Table section */
+.resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.resultsTable th,
+.resultsTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.resultsTable th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.metabolites {
+    width: 350px;
+}

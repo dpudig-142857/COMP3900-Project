@@ -1,0 +1,219 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif; 
+    color: rgb(0, 0, 0);
+}
+
+/* Header box */
+.header {
+    background-color: #6DF1A9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo on the left */
+.header-left {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.hover-box {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%; /* Position below the image */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 235px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 1px solid #007BFF; 
+}
+
+.header-left:hover .hover-box {
+    display: block;
+}
+
+/* Title in the middle */
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-left: 100px;
+}
+
+.title {
+    padding: 1rem 1rem;
+    font-size: 3rem;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    font-family: 'Roboto';
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Significance Table Link on the right */
+.header-right-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-right {
+    padding: 1rem 1rem;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    text-align: center;
+}
+
+.header-right:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Everything below the header */
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* Left side of main content */
+.left-panel {
+    flex: 1;
+    max-width: 300px;
+}
+
+/* Query Border */
+.card {
+    border-radius: 0.5rem; 
+    border: 1px solid #007BFF; 
+}
+
+/* Query answer section and select neighbour section */
+.form-control,
+.form-select {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
+    color: #000000;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007BFF; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+/* Run query button */
+.btn-primary {
+    background-color: #007BFF;  
+    border-radius: 0.5rem; 
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #004085;
+    transform: scale(1.05);
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Legend */
+.legend-section {
+    width: 300px;
+    align-items: center;
+    margin-bottom: 5px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem; 
+    background-color: #f9f9f9;
+}
+
+.legend-title,
+.legend-item {
+    padding-bottom: 10px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: top;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.legend-label {
+    font-size: 1.1rem;
+}
+
+/* Zoom Buttons */
+.zoom-buttons {
+    display: flex;       
+    justify-content: center;
+    margin: 20px;     
+    gap: 10px;
+}
+
+.zoom-buttons button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.zoom-buttons button:hover {
+    background-color: #0056B3;
+    transform: scale(1.05);
+}
+
+.zoom-buttons button:active {
+    transform: scale(0.95);
+}
+
+.zoom-buttons button:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Right side of main content */
+.right-panel {
+    flex: 3;
+}
+
+/* Canvas section */
+#graphCanvas {
+    width: 100%;
+    height: 600px;
+    border: 2px solid #007BFF;
+    background-color: #FFFFFF;
+}

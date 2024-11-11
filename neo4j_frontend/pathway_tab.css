@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif; 
+    color: rgb(0, 0, 0);
+}
+
+/* Header box */
+.header {
+    background-color: #6DF1A9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo on the left */
+.header-left {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.hover-box {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 100%; /* Position below the image */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 235px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 1px solid #007BFF; 
+}
+
+.header-left:hover .hover-box {
+    display: block;
+}
+
+/* Title in the middle */
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    padding: 1rem 1rem;
+    font-size: 3rem;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+    font-family: 'Roboto';
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Significance Table Link on the right */
+.header-right {
+    flex: 0;
+    display: inline-block;
+    padding: 1rem 1rem;
+    color: #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    text-align: center;
+    justify-content: flex-end;
+}
+
+.header-right:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Box in the middle */
+.main-box {
+    background-color: #f5f5f5;
+    padding: 30px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #007BFF;
+}
+
+.pathwayTitle {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* Name of the pathway */
+#pathwayName {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #555555;
+}
+
+/* ID of the pathway */
+#pathwayId {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #555555;
+}
+
+/* Link to KEGG */
+.links {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.link {
+    margin: 15px 0;
+}
+
+.link a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.link a:hover {
+    color: #005bb5;
+    text-decoration: underline;
+}
+
+/* Error Message if pathway name or ID is not found */
+#errorMessage {
+    color: #ff4c4c;
+    margin-top: 10px;
+    font-size: 14px;
+}

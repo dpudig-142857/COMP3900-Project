@@ -3,13 +3,16 @@ const neo4j_http_url = "http://localhost:7474/db/neo4j/tx"
 const neo4jUsername = "neo4j"
 const neo4jPassword = "password"
 
-// used for drawing nodes and arrows later on
+// Used for drawing nodes and arrows later on
 const circleSize = 30
 const arrowHeight = 5
 const arrowWidth = 5
 
+let searchedMetabolite = ""
+
+// Fetch all of the data from the json files
 let compoundsData = [];
-let pathwaysData = {};
+let pathwaysData = [];
 fetch('compounds.json')
     .then(response => response.json())
     .then(data => {
@@ -26,76 +29,109 @@ fetch('pathways.json')
     })
     .catch(error => console.error("Error loading pathways data:", error));
 
+// getCompoundId
+//      - If the compound exists, gets the compound ID from the name
+//
+// Parameters:
+//      - compoundName (string) - the name of the compound that may or may not exist
+//
+// Returns:
+//      - the id of the compound or
+//      - null
+//
 function getCompoundId(compoundName) {
-    const compound = compoundsData.find(c => c.compound_name === compoundName);
+    const compound = compoundsData.find(c => c.compound_name == compoundName);
+    console.log(compound);
     return compound ? compound.compound_id : null;
 }
 
+// getPathwayId
+//      - If the pathway exists, gets the pathway ID from the name
+//
+// Parameters:
+//      - pathwayName (string) - the name of the pathway that may or may not exist
+//
+// Returns:
+//      - the id of the pathway or
+//      - null
+//
 function getPathwayId(pathwayName) {
-    const pathwayId = pathwaysData[pathwayName];
-    return pathwayId || null;
+    const name = pathwayName.split(";");
+    const pathway = pathwaysData.find(p => p.pathway_name === name[0]);
+    return pathway ? pathway.pathway_id : null;
 }
 
-function openLinksPage(id, isCompound, name) {
+// openLinksPage
+//      - Opens the specialised link for either compounds or pathways and displays its information
+//
+// Parameters:
+//      - isCompound (bool) - true if it is a compound, false if it is a pathway
+//      - id (string) - the id of the compound or pathway
+//      - name (string) - the name of the compound or pathway
+//
+// Returns:
+//      - nothing
+//
+function openLinksPage(isCompound, id, name) {
     if (isCompound) {
-        const url = `links.html?compoundId=${id}&compoundName=${encodeURIComponent(name)}`;
+        const url = `compound_tab.html?compoundId=${id}`;
         console.log(`Opening compound page: ${url}`);
         window.open(url, "_blank");
     } else {
-        const url = `pathwaylinks.html?pathwayId=${id}&pathwayName=${encodeURIComponent(name)}`;
+        const url = `pathway_tab.html?pathwayId=${id}`;
         console.log(`Opening pathway page: ${url}`);
         window.open(url, "_blank");
     }
 }
 
+// submitQuery
+//      - Submits Query to Neo4j based on given metabolite and number of neighbours
+//
+// Returns:
+//      - nothing
+// 
 const submitQuery = () => {
-    console.log("Startcalled");
     // Create new, empty objects to hold the nodes and relationships returned by the query results
     let nodeItemMap = {}
     let linkItemMap = {}
 
-    // contents of the query text field
-    
-    //const metabolite_name = document.querySelector('#queryContainer').value
-    //const cypherString =`MATCH (m:METABOLITE name: ${metabolite_name})--(neighbor) RETURN m.name AS metabolite, neighbor.name AS neighbor` 
-
-    // Construct the Cypher query with the parameterized metabolite name
-    
-    
-    metaboliteName = document.querySelector('#queryContainer').value;
-    console.log("Name:", metaboliteName);
+    // Contents of the query text field
+    searchedMetabolite = document.querySelector('#queryContainer').value;
     neighbors = document.querySelector('#neighborsDropdown').value;
 
-    // get history if no history make an array
+    // Get history if no history make an array
     const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
 
-    // add the metab name and number of neighbours along with the time the submit button is pressed
-    queryHistory.push({ metabolite: metaboliteName, neighbors: neighbors, timestamp: new Date().toLocaleString() });
+    // Check to see if the query already exists
+    const existingQuery = queryHistory.find(q => 
+        q.neighbors == neighbors && q.metabolite.toLowerCase() == searchedMetabolite.toLowerCase()
+    );
 
+    if (existingQuery) {
+        existingQuery.timestamp = new Date().toLocaleString();
+    } else {
+        queryHistory.push({
+            metabolite: searchedMetabolite,
+            neighbors: neighbors,
+            timestamp: new Date().toLocaleString()
+        });
+    }
+    
     //save into local storage
     localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
 
-    // console.log("Query saved to history:", { metabolite: metaboliteName, neighbors: neighbors });
-    
-    // numbersStr = numbersStr.split("/");
-    // const metaboliteName = numbersStr[0]
-    // console.log("MET Name:", metaboliteName);
-
-    let start = `match (m0 {name: '${metaboliteName}'})`;
+    // Generate Cypher Query
+    let start = `match (m0)`;
+    let middle = ` where toLower(m0.name) = toLower('${searchedMetabolite}')`;
     let end = ` return m0`;
-
     for (let i = 0; i < neighbors; i++) {
-        start += `-[r${i+1}:LINKED]-(m${i+1})`
-        end += `,r${i+1},m${i+1}` 
+        start += `-[r${i+1}:LINKED]-(m${i+1})`;
+        end += `,r${i+1},m${i+1}`;
     }
+    const cypherString = start + middle + end + ` limit 300`;
 
-    const cypherString = start+end+` limit 300`;
-
-    // const cypherString = document.querySelector('#queryContainer').value
-
-    // document.write(cypherString);
     // make POST request with auth headers
-    let response = fetch(neo4j_http_url, {
+    fetch(neo4j_http_url, {
         method: 'POST',
         // authentication using the username and password of the user in Neo4j
         headers: {
@@ -119,7 +155,7 @@ const submitQuery = () => {
             if (data.results != null && data.results.length > 0 && data.results[0].data != null && data.results[0].data.length > 0) {
                 let neo4jDataItmArray = data.results[0].data;
                 neo4jDataItmArray.forEach(function (dataItem) { // iterate through all items in the embedded 'results' element returned from Neo4j, https://neo4j.com/docs/http-api/current/actions/result-format/
-                    //Node
+                    // Node
                     if (dataItem.graph.nodes != null && dataItem.graph.nodes.length > 0) {
                         let neo4jNodeItmArray = dataItem.graph.nodes; // all nodes present in the results item
                         neo4jNodeItmArray.forEach(function (nodeItm) {
@@ -127,7 +163,7 @@ const submitQuery = () => {
                                 nodeItemMap[nodeItm.id] = nodeItm;
                         });
                     }
-                    //Link, interchangeably called a relationship
+                    // Link, interchangeably called a relationship
                     if (dataItem.graph.relationships != null && dataItem.graph.relationships.length > 0) {
                         let neo4jLinkItmArray = dataItem.graph.relationships; // all relationships present in the results item
                         neo4jLinkItmArray.forEach(function (linkItm) {
@@ -170,23 +206,22 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// create a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
+
+
+// updateGraph
+//      - Creates a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
+//
+// Parameters:
+//      - nodes (array) - all of the nodes on the graph
+//      - links (array) - all of the links between nodes on the graph
+//
+// Returns:
+//      - nothing
+//
 const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    const centerX = width / 2;
-    const centerY = height / 2;
-
-    // Centering the nodes on the canvas
-    nodes.forEach((node, index) => {
-
-        // spreading the nodes apart
-        const angle = (index / nodes.length) * 2 * Math.PI;
-        node.x = centerX + (Math.cos(angle) * 100);
-        node.y = centerY + (Math.sin(angle) * 100);
-    });
-
     let transform = d3.zoomIdentity;
 
     // This object sets the force between links and instructs the below simulation to use the links provided from query results, https://github.com/d3/d3-force#links
@@ -194,17 +229,15 @@ const updateGraph = (nodes, links) => {
         .distance(50)
         .strength(0.1)
         .links(links)
-        .id((d) => {
-            return d.id;
-        });
+        .id(d => d.id);
 
-    /*
-    This defines a new D3 Force Simulation which controls the physical behavior of how nodes and links interact.
-    https://github.com/d3/d3-force#simulation
-    */
+    // This defines a new D3 Force Simulation which controls the physical behavior of how nodes and links interact.
+    // https://github.com/d3/d3-force#simulation
+    
     let simulation = new d3.forceSimulation()
         .force('chargeForce', d3.forceManyBody().strength())
         .force('collideForce', d3.forceCollide(circleSize * 3))
+        .force("center", d3.forceCenter(width / 2, height / 2))
 
     // Here, the simulation is instructed to use the nodes returned from the query results and to render links using the force defined above
     simulation
@@ -223,7 +256,7 @@ const updateGraph = (nodes, links) => {
         simulationUpdate();
     }
 
-    // ZOOM BUTOONNSSS
+    // Zoom Buttons
     const zoom = d3.zoom()
         .scaleExtent([0.5, 5])
         .on('zoom', (event) => {
@@ -260,7 +293,7 @@ const updateGraph = (nodes, links) => {
         document.body.removeChild(link);
     };
 
-    //The canvas is cleared and then instructed to draw each node and link with updated locations per the physical force simulation.
+    // The canvas is cleared and then instructed to draw each node and link with updated locations per the physical force simulation.
     function simulationUpdate() {
         let context = canvas.getContext('2d');
         context.save(); // save canvas state, only rerender what's needed
@@ -299,7 +332,9 @@ const updateGraph = (nodes, links) => {
             context.arc(d.x, d.y, circleSize, 0, 2 * Math.PI);
 
             // fill color
-            if (d.labels && d.labels.includes('METABOLITE')) {
+            if (d.properties.name.toLowerCase() == searchedMetabolite.toLowerCase()) {
+                context.fillStyle = '#A865B5';
+            } else if (d.labels && d.labels.includes('METABOLITE')) {
                 context.fillStyle = '#4EA8E5';
             } else if (d.labels && d.labels.includes('PATHWAY')) {
                 context.fillStyle = '#6df1a9';
@@ -310,16 +345,18 @@ const updateGraph = (nodes, links) => {
 
             context.textAlign = "center"
             context.textBaseline = "middle"
+            context.fillStyle = "#000000"
+            context.font = '12px Arial'
 
             // Limit text length and add ellipsis if necessary
-            const maxLabelLength = 12;
+            const maxLabelLength = 10;
             let labelText = d.properties.name || d.properties.title || "";
-            if (labelText.length > maxLabelLength) {
+            if (labelText.length > maxLabelLength - 3) {
                 labelText = labelText.substring(0, maxLabelLength - 3) + "...";
             }
 
             // Draws the appropriate text on the node
-            context.strokeText(labelText, d.x, d.y)
+            context.fillText(labelText, d.x, d.y)
             context.closePath();
             context.stroke();
         });
@@ -361,11 +398,12 @@ const updateGraph = (nodes, links) => {
     
                 const compoundId = getCompoundId(nodeName);
                 const pathwayId = getPathwayId(nodeName);
+                console.log("Compound = " + compoundId + "\nPathway = " + pathwayId);
     
                 if (compoundId) {
-                    openLinksPage(compoundId, true, nodeName);
+                    openLinksPage(true, compoundId, nodeName);
                 } else if (pathwayId) {
-                    openLinksPage(pathwayId, false, nodeName);
+                    openLinksPage(false, pathwayId, nodeName);
                 } else {
                     alert("Link not available for this node.");
                 }
@@ -374,14 +412,18 @@ const updateGraph = (nodes, links) => {
     });
 }
 
+// responsiveCanvasSizer
+//      - Resizes the canvas to fit the user's screen
+//
+// Returns:
+//      - nothing
+//
 function responsiveCanvasSizer() {
     const canvas = document.querySelector('canvas')
     const rect = canvas.getBoundingClientRect()
-    // ratio of the resolution in physical pixels to the resolution in CSS pixels
-    const dpr = window.devicePixelRatio
 
     // Set the "actual" size of the canvas
-    canvas.width = rect.width 
+    canvas.width = rect.width
     canvas.height = rect.height
 
     // Set the "drawn" size of the canvas
