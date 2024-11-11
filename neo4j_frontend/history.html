@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query History</title>
+    <link rel="stylesheet" href="history.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Query History</h1>
+        </div>
+        
+        <!-- list of history -->
+        <ul id="historyList" class="history-list"></ul>
+
+        <!-- History button -->
+        <button id="clearHistoryBtn" class="btn btn-danger">Delete History</button>
+    </div>
+
+    <p><a href="index.html" class="back-link">Back to Main Page</a></p>
+
+    <!-- Show history info -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const historyList = document.getElementById('historyList');
+            const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
+
+            // if nothing say no query history available
+            if (queryHistory.length === 0) {
+                historyList.innerHTML = '<li>No query history available.</li>';
+            } else {
+                queryHistory.forEach(entry => {
+                    const listItem = document.createElement('li');
+                    
+                    // Create a links which store metab name and neighbour number which we can run
+                    const link = document.createElement('a');
+                    link.href = `index.html?metabolite=${encodeURIComponent(entry.metabolite)}&neighbors=${encodeURIComponent(entry.neighbors)}`;
+                    link.textContent = `Metabolite: ${entry.metabolite}, Neighbors: ${entry.neighbors}, Date: ${entry.timestamp}`;
+                    link.classList.add('history-link');
+                    
+                    // Append the links
+                    listItem.appendChild(link);
+                    historyList.appendChild(listItem);
+                });
+            }
+        });
+    </script>
+
+    <!-- Delete history --> 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+            const historyList = document.getElementById('historyList');
+
+            clearHistoryBtn.addEventListener('click', () => {
+
+                // remove stuff
+                localStorage.removeItem('queryHistory');
+                historyList.innerHTML = '<li>No query history available.</li>';
+                alert("Search history has been deleted.");
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+    

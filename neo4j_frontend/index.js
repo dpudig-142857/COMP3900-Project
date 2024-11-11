@@ -62,11 +62,24 @@ const submitQuery = () => {
     // Construct the Cypher query with the parameterized metabolite name
     
     
-    numbersStr = document.querySelector('#queryContainer').value;
+    metaboliteName = document.querySelector('#queryContainer').value;
+    console.log("Name:", metaboliteName);
     neighbors = document.querySelector('#neighborsDropdown').value;
+
+    // get history if no history make an array
+    const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
+
+    // add the metab name and number of neighbours along with the time the submit button is pressed
+    queryHistory.push({ metabolite: metaboliteName, neighbors: neighbors, timestamp: new Date().toLocaleString() });
+
+    //save into local storage
+    localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
+
+    // console.log("Query saved to history:", { metabolite: metaboliteName, neighbors: neighbors });
     
-    numbersStr = numbersStr.split("/");
-    const metaboliteName = numbersStr[0]
+    // numbersStr = numbersStr.split("/");
+    // const metaboliteName = numbersStr[0]
+    // console.log("MET Name:", metaboliteName);
 
     let start = `match (m0 {name: '${metaboliteName}'})`;
     let end = ` return m0`;
@@ -134,22 +147,45 @@ const submitQuery = () => {
         });
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+
+    // Get the metab name and neigbours in the URL
+    const params = new URLSearchParams(window.location.search);
+    const metabolite = params.get('metabolite');
+    const neighbors = params.get('neighbors');
+
+    // console.log("HELLOOOO"); 
+
+    // If metab name and neighbors are in the URL, set them.
+    if (metabolite) {
+        document.getElementById('queryContainer').value = metabolite;
+    }
+    if (neighbors) {
+        document.getElementById('neighborsDropdown').value = neighbors;
+    }
+
+    // Automatically run the query if both exist
+    if (metabolite && neighbors) {
+        submitQuery();
+    }
+});
+
 // create a new D3 force simulation with the nodes and links returned from a query to Neo4j for display on the canvas element
 const updateGraph = (nodes, links) => {
     const canvas = document.querySelector('canvas');
     const width = canvas.width;
     const height = canvas.height;
-    // const centerX = width / 2;
-    // const centerY = height / 2;
+    const centerX = width / 2;
+    const centerY = height / 2;
 
-    // // Centering the nodes on the canvas
-    // nodes.forEach((node, index) => {
+    // Centering the nodes on the canvas
+    nodes.forEach((node, index) => {
 
-    //     // spreading the nodes apart
-    //     const angle = (index / nodes.length) * 2 * Math.PI;
-    //     node.x = centerX + (Math.cos(angle) * 100);
-    //     node.y = centerY + (Math.sin(angle) * 100);
-    // });
+        // spreading the nodes apart
+        const angle = (index / nodes.length) * 2 * Math.PI;
+        node.x = centerX + (Math.cos(angle) * 100);
+        node.y = centerY + (Math.sin(angle) * 100);
+    });
 
     let transform = d3.zoomIdentity;
 
@@ -312,6 +348,7 @@ const updateGraph = (nodes, links) => {
 
     canvas.addEventListener('click', event => {
         const rect = canvas.getBoundingClientRect();
+        console.log("dimensions:", rect);
         const mouseX = (event.clientX - rect.left - transform.x) / transform.k;
         const mouseY = (event.clientY - rect.top - transform.y) / transform.k;
     
@@ -344,8 +381,8 @@ function responsiveCanvasSizer() {
     const dpr = window.devicePixelRatio
 
     // Set the "actual" size of the canvas
-    canvas.width = rect.width * dpr
-    canvas.height = rect.height * dpr
+    canvas.width = rect.width 
+    canvas.height = rect.height
 
     // Set the "drawn" size of the canvas
     canvas.style.width = `${rect.width}px`
