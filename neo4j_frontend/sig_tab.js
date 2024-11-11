@@ -184,13 +184,7 @@ function changeOptions() {
     }
 
     // Keep the same option for the direction
-    if (asc.checked) {
-        asc.checked=true;
-    } else if (desc.checked) {
-        desc.checked=true;
-    } else {
-        asc.checked=true;
-    }
+    if (asc.checked || desc.checked) sortResults();
 
     sortResults();
 }
