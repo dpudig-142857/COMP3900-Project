@@ -74,6 +74,29 @@ function filterResults() {
     });
 }
 
+// filterByPValue
+//      - Filters and displays results by p-value thresholds
+//      - Can be used in conjunction with sort by p-value to order metabolites
+//
+// Returns:
+//      - nothing
+//
+function filterByPValue() {
+    const pValueThreshold = parseFloat(document.getElementById("pValueInput").value);
+    const rows = document.getElementById("tableBody").getElementsByTagName("tr");
+
+    for (let row of rows) {
+        const pValueText = row.querySelector("td:nth-child(4)").textContent.trim();
+        const pValue = parseFloat(pValueText);
+
+        if (!isNaN(pValue) && pValue <= pValueThreshold) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    }
+}
+
 // sortResults
 //      - Sorts the results on the method given by the dropdown box and the direction buttons
 //
@@ -144,7 +167,7 @@ function sortResults() {
     rows.forEach(row => tableBody.appendChild(row));
 }
 
-// sortResults
+// changeOptions
 //      - Changes the names of the direction buttons to match the current sorting method
 //
 // Returns:
@@ -162,25 +185,27 @@ function changeOptions() {
         document.querySelector("label[for='asc']").textContent = "A - Z";
         document.querySelector("label[for='desc']").textContent = "Z - A";
     } else if (method == "4") {
-        // Sort by P-Value (1-0 or 0-1)
-        document.querySelector("label[for='asc']").textContent = "1 - 0";
-        document.querySelector("label[for='desc']").textContent = "0 - 1";
+        // Sort by P-value
+        document.getElementById("pValueInput").style.display = "block";
+        document.getElementById("pValueInput").focus();
+        document.querySelector("label[for='asc']").textContent = "Descending";
+        document.querySelector("label[for='desc']").textContent = "Ascending";
     } else if (method == "5" || method == "6") {
         // Sort by CVG Samples or CVH Samples (High-Low or Low-High)
         document.querySelector("label[for='asc']").textContent = "High";
         document.querySelector("label[for='desc']").textContent = "Low";
     } else if (method == "7") {
         // Sort by Status (Suff-Insuff or Insuff-Suff)
-        document.querySelector("label[for='asc']").textContent = "Suff";
-        document.querySelector("label[for='desc']").textContent = "Insuff";
+        document.querySelector("label[for='asc']").textContent = "Sufficient";
+        document.querySelector("label[for='desc']").textContent = "Insufficient";
     } else if (method == "8") {
         // Sort by Regulation (Up-Down or Down-Up)
         document.querySelector("label[for='asc']").textContent = "Up";
         document.querySelector("label[for='desc']").textContent = "Down";
     } else {
         // Sort by Fold Change or log_2(Fold Change) (Asc or Desc)
-        document.querySelector("label[for='asc']").textContent = "Asc";
-        document.querySelector("label[for='desc']").textContent = "Desc";
+        document.querySelector("label[for='asc']").textContent = "Ascending";
+        document.querySelector("label[for='desc']").textContent = "Descending";
     }
 
     // Keep the same option for the direction
