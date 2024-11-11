@@ -49,58 +49,51 @@ def get_hmdb_pathways(metabolite_name):
             break
     return strong_texts
 
-def add_metabolism(driver, metabolite, metabolism):
+def add_metabolite(driver, meta):
     driver.execute_query(
-        """MERGE (a:METABOLITE {name: $metabolite}) 
-        MERGE (b:PATHWAY {name: $metabolism}) 
-        MERGE (a)-[:LINKED]->(b)""",
-        metabolite=metabolite,metabolism=metabolism, database_="neo4j",
+        """CREATE (a:METABOLITE {name: $metabolite, kegg_id:$kegg_id, cid:$cid, molecular_formula:$molecular_formula, canonical_smiles:$canonical_smiles, isomeric_smiles:$isomeric_smiles, fold_change:$fold_change, log2_fold_change:$log2_fold_change, p_value:$p_value, CVG_count:$CVG_count, CVH_count:$CVH_count, status:$status, regulation:$regulation, source:$source}) 
+        """,
+        metabolite=meta[0],kegg_id=meta[1],cid=meta[2],molecular_formula=meta[3],canonical_smiles=meta[4],isomeric_smiles=meta[5],fold_change=meta[7],log2_fold_change=meta[8],p_value=meta[9],CVG_count=meta[9],CVH_count=meta[10],status=meta[11],regulation=meta[12],source=meta[13], database_="neo4j",
     )
 
-def print_friends(driver, name):
-    records, _, _ = driver.execute_query(
-        "MATCH (a:Person)-[:KNOWS]->(friend) WHERE a.name = $name "
-        "RETURN friend.name ORDER BY friend.name",
-        name=name, database_="neo4j", routing_=RoutingControl.READ,
+def add_metabolism(driver,kegg_id, metabolism, mapp_id):
+    driver.execute_query(
+        """MERGE (a:METABOLITE {kegg_id:$kegg_id}) 
+        MERGE (b:PATHWAY {name: $metabolism, mapp_id: $mapp_id}) 
+        MERGE (a)-[:LINKED]->(b)""",
+        kegg_id=kegg_id,metabolism=metabolism,mapp_id=mapp_id, database_="neo4j",
     )
-    for record in records:
-        print(record["friend.name"])
 
 
 def main():
-    metabol = []
     with sqlite3.connect('compounds.db') as conn:
         cur = conn.cursor()
-        cur.execute('''SELECT compound_id, MIN(compound_name) as compound_name
+        cur.execute('''SELECT MIN(compound_name), compound_id, MIN(cid), MIN(molecular_formula), MIN(canonical_smiles), MIN(isomeric_smiles), pathways, MIN(FoldChange), MIN(Log2FoldChange), MIN(PValue), MIN(CVG_Count), MIN(CVH_Count), MIN(Status), MIN(Regulation), MIN(Source) 
                     FROM compounds
                     GROUP BY compound_id
                     ''')
         rows = cur.fetchall()
+        
         for row in rows:
-            metabolite = row[1]
+            if row[6] is not None:
+                kegg_id = row[1]
+                pathways = []
+                stored_pathways = []
 
-            entry = {"metabolite" : metabolite}
-            kegg_pathways = get_kegg_pathways(metabolite)
-            if kegg_pathways != "\n" and kegg_pathways != None:
-                metabol.append(metabolite)
-                entry["kegg-pathways"] = []
-                for metabolism_entry in kegg_pathways.split("\n")[:-1]:
-                    metabolism = metabolism_entry.split("\t")[-1]
-                    
-                    with GraphDatabase.driver(URI, auth=AUTH) as driver:
-                        add_metabolism(driver, metabolite, metabolism)
-                    
-                    entry["kegg-pathways"].append(metabolism)
-            #entry["hmdb-pathways"] = get_hmdb_pathways(metabolite)
-            print(entry)
-            metabol.append(entry)
-            with open('metabolit-pathways.json', 'w') as json_file:
-                json.dump(metabol, json_file, indent=4)    
-            
-    print(metabol)
+                stored_pathways = row[6].split("Ω")
+                for pathway in stored_pathways:
+                    if pathway != "":
+                        stored_pathway = {}
+                        stored_pathway["name"] = pathway.split("ඞ")[1]
+                        stored_pathway["mmap"] = pathway.split("ඞ")[0]
+                        pathways.append(stored_pathway)
+                
+                with GraphDatabase.driver(URI, auth=AUTH) as driver:
+                    add_metabolite(driver, row)
+                    for pathway in pathways:
+                        add_metabolism(driver, kegg_id, pathway["name"], pathway["mmap"])
+                print(f"Metabolite: {row[0]}, Pathways: {pathways}")
+    
  
-#print(get_hmdb_id("Dodecyl sulfate"))
-#print(get_kegg_pathways("Taurine"))
 main()
-#CALL db.schema.visualization
 
