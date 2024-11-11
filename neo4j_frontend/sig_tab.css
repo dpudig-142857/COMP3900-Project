@@ -123,12 +123,16 @@ body {
 }
 
 .filter::placeholder,
-.sort-select::placeholder {
+.sort-select::placeholder,
+#pValueInput::placeholder {
     color: #000000;
+    opacity: 0.6;
 }
 
 .filter:focus,
-.sort-select:focus {
+.sort-select:focus,
+#pValueInput:focus
+ {
     border-color: #007BFF; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
     outline: none;
@@ -149,6 +153,37 @@ body {
 .sort-direction label {
     margin-right: 10px;
     vertical-align: middle;
+}
+
+/* P-Value filter section */
+#pValueInput {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+    padding: 8px;
+    width: 200px;
+    text-align: center;
+}
+
+button.btn-primary {
+    border-radius: 3rem;
+    height: 40px;
+    padding: 0 15px;
+}
+
+/* Accounts for screen sizes, with elements wrapping to the next line if too long for card*/
+.card-body {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sort-select, .filter, #pValueInput {
+    height: 40px;
+}
+
+.sort-select, .filter, #pValueInput, button.btn-primary {
+    font-size: 1rem;
 }
 
 /* Legend section */
@@ -176,20 +211,32 @@ body {
 .resultsTable {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.resultsTable th,
-.resultsTable td {
-    padding: 8px;
-    border: 1px solid #ddd;
+    table-layout: auto;
 }
 
 .resultsTable th {
     background-color: #f2f2f2;
     text-align: center;
+    font-weight: bold;
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+}
+
+.resultsTable td {
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
 .metabolites {
     width: 350px;
+}
+
+.fold, .log, .pvalue, .cvg, .cvh, .status, .src {
+    width: 100px;
+}
+
+.resultsTable th, .resultsTable td {
+    font-size: 1rem;
+    color: #333333;
 }
