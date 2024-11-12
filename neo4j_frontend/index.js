@@ -108,6 +108,7 @@ function openLinksPage(isCompound, id, name) {
 }
 
 function changeQueryType() {
+    console.log("HELLO?");
     if (document.getElementById('one').checked) {
         document.getElementById('oneMetabolite').style.display = 'block';
         document.getElementById('twoMetabolites').style.display = 'none';
@@ -129,10 +130,16 @@ const submitQuery = () => {
     const searched = metaboliteOne;
     metaboliteTwo = "";
     neighbors = document.querySelector('#neighborsDropdown').value;
+    let type = -1;
 
     const compound = getCompoundId(metaboliteOne);
     const pathway = getPathwayId(metaboliteOne);
-    if (compound) changeName(compound, true);
+    if (compound) {
+        changeName(compound, true);
+        type = 1;
+    } else if (pathway) {
+        type = 2;
+    }
 
     // Get history if no history make an array
     const queryHistory = JSON.parse(localStorage.getItem('queryHistory')) || [];
@@ -145,9 +152,9 @@ const submitQuery = () => {
     if (existingQuery) {
         existingQuery.timestamp = new Date().toLocaleString();
     } else {
+        console.log("type = " + type);
         queryHistory.push({
-            single: true,
-            compound: compound != null,
+            type: type,
             metabolite: searched,
             metabolite2: metaboliteTwo,
             neighbors: neighbors,
@@ -186,11 +193,13 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
         const metabolite1 = params.get('metaboliteOne');
         const metabolite2 = params.get('metaboliteTwo');
-        document.getElementById('one').checked = false;
-        document.getElementById('two').checked = true;
-        changeQueryType();
-        document.getElementById('firstMetabolite').value = metabolite1;
-        document.getElementById('secondMetabolite').value = metabolite2;
+        if (metabolite1 && metabolite2) {
+            document.getElementById('one').checked = false;
+            document.getElementById('two').checked = true;
+            changeQueryType();
+            document.getElementById('firstMetabolite').value = metabolite1;
+            document.getElementById('secondMetabolite').value = metabolite2;
+        }
     }
 });
 
@@ -212,8 +221,7 @@ async function findPath() {
     } else {
         console.log("history = " + queryHistory);
         queryHistory.push({
-            single: false,
-            compound: true,
+            type: 3,
             metabolite: metaboliteOne,
             metabolite2: metaboliteTwo,
             neighbors: "",

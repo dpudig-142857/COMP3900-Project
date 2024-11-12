@@ -101,16 +101,62 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.history-container {
-    width: 80%;
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+.left-panel {
+    flex: 1;
+    max-width: 300px;
+}
+
+.right-panel {
+    flex: 3;
+}
+
+.card {
+    padding: 1rem;
+    border-radius: 0.5rem; 
+    border: 1px solid #007BFF;
+}
+
+.sort-select {
+    border: 1px solid #CED4DA;
+    border-radius: 3rem;
+    padding: 8px;
+    margin: -8px;
+    width: 266px;
+}
+
+.sort-select::placeholder {
+    color: #000000;
+    opacity: 0.6;
+}
+
+.sort-select:focus
+ {
+    border-color: #007BFF; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+    outline: none;
+}
+
+/* Sort direction buttons section */
+.sort-direction {
+    display: none;
+    gap: 10px;
+    margin-top: -8px;
+}
+
+.sort-direction input[type="radio"] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.sort-direction label {
+    margin-right: 10px;
+    vertical-align: middle;
+}
   
 .no-history {
     font-size: 1.5em;
