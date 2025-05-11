@@ -17,4 +17,14 @@ Access to web-based bioinformatic tools and biological databases like the human 
 Interest in bioinformatics, algorithms, and artificial intelligence
 # Expected outcomes/deliverables
 Preliminary data that can be acted on to determine clinical hypotheses that can be tested in vitro and in animal models
-
+# Running Program
+1. Unzip neo4j_db.zip
+2. Confirm all permissions are okay with the files
+      - for mac, run "chmod -R 777 neo4j_db"
+      - for windows, just make sure the folder is stored locally
+3. Open docker
+4. Run "docker-compose up" to run the backend
+5. Check the backend is working at https://localhost:7474
+      - If prompted for username and password, type in "neo4j" and "password" respectively
+6. Run "python -m http.server" in neo4j_frontend to run the frontend
+7. Main website should be running at https://localhost:8000
